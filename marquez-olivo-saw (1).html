@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Márquez & Olivo — SAW</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Exo+2:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══ THEMES ═══ */
+:root,[data-theme=cyan]{--a1:#00e5ff;--a2:#00bcd4;--a3:rgba(0,229,255,.1);--glow:0 0 20px rgba(0,229,255,.4);--grad:linear-gradient(135deg,#001e2e,#00bcd4);--grad2:linear-gradient(135deg,#008fa8,#00e5ff);--bg0:#04060e;--bg1:#07101a;--bg2:#0a1424;--bgc:rgba(7,16,26,.97);--brd:rgba(255,255,255,.07);--brd2:rgba(0,229,255,.2);--txt:#cdd8f0;--txt2:#5a7a9a;--txt3:#2a4060;}
+[data-theme=purple]{--a1:#d500f9;--a2:#aa00ff;--a3:rgba(213,0,249,.1);--glow:0 0 20px rgba(213,0,249,.4);--grad:linear-gradient(135deg,#1a002e,#aa00ff);--grad2:linear-gradient(135deg,#7b00d4,#d500f9);--bg0:#04060e;--bg1:#0e0718;--bg2:#160a24;--bgc:rgba(14,7,24,.97);--brd:rgba(255,255,255,.07);--brd2:rgba(213,0,249,.2);--txt:#d8c8f0;--txt2:#7a5a9a;--txt3:#3a2060;}
+[data-theme=green]{--a1:#00e676;--a2:#00c853;--a3:rgba(0,230,118,.1);--glow:0 0 20px rgba(0,230,118,.4);--grad:linear-gradient(135deg,#001e0e,#00c853);--grad2:linear-gradient(135deg,#007a35,#00e676);--bg0:#04060e;--bg1:#071410;--bg2:#0a1e14;--bgc:rgba(7,20,16,.97);--brd:rgba(255,255,255,.07);--brd2:rgba(0,230,118,.2);--txt:#c8f0d0;--txt2:#3a7a5a;--txt3:#1a4030;}
+[data-theme=gold]{--a1:#ffd740;--a2:#ffa000;--a3:rgba(255,215,64,.1);--glow:0 0 20px rgba(255,215,64,.4);--grad:linear-gradient(135deg,#1e1200,#ffa000);--grad2:linear-gradient(135deg,#e65100,#ffd740);--bg0:#04060e;--bg1:#18100a;--bg2:#241808;--bgc:rgba(24,16,10,.97);--brd:rgba(255,255,255,.07);--brd2:rgba(255,215,64,.2);--txt:#f0e8c8;--txt2:#8a6a2a;--txt3:#4a3810;}
+[data-theme=pink]{--a1:#ff4081;--a2:#f50057;--a3:rgba(255,64,129,.1);--glow:0 0 20px rgba(255,64,129,.4);--grad:linear-gradient(135deg,#1e0010,#f50057);--grad2:linear-gradient(135deg,#880e4f,#ff4081);--bg0:#04060e;--bg1:#180710;--bg2:#240a18;--bgc:rgba(24,7,16,.97);--brd:rgba(255,255,255,.07);--brd2:rgba(255,64,129,.2);--txt:#f0c8d8;--txt2:#8a3a5a;--txt3:#4a1a30;}
+[data-theme=white]{--a1:#ffffff;--a2:#b0c4de;--a3:rgba(255,255,255,.08);--glow:0 0 20px rgba(255,255,255,.35);--grad:linear-gradient(135deg,#10162a,#b0c4de);--grad2:linear-gradient(135deg,#6080a0,#ffffff);--bg0:#04060e;--bg1:#080e1c;--bg2:#0c1422;--bgc:rgba(8,14,28,.97);--brd:rgba(255,255,255,.1);--brd2:rgba(255,255,255,.3);--txt:#e8eeff;--txt2:#7a8aaa;--txt3:#3a4a6a;}
+/* ═══ RESET ═══ */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Exo 2',sans-serif;background:var(--bg0);color:var(--txt);min-height:100vh;overflow-x:hidden;}
+button,input,select,textarea{font-family:'Exo 2',sans-serif;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
+/* ═══ BG ═══ */
+.bgw{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.bgg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:56px 56px;animation:gm 30s linear infinite;}
+@keyframes gm{to{background-position:56px 56px;}}
+.bgo{position:absolute;border-radius:50%;filter:blur(90px);background:var(--a3);}
+.o1{width:600px;height:600px;top:-200px;left:-150px;animation:op 12s ease-in-out infinite;}
+.o2{width:400px;height:400px;bottom:-100px;right:-100px;animation:op 15s ease-in-out infinite reverse;}
+@keyframes op{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.scl{position:fixed;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--a1),transparent);opacity:.15;animation:sc 9s linear infinite;z-index:1;pointer-events:none;}
+@keyframes sc{0%{top:0;}100%{top:100vh;}}
+/* ═══ SCREENS ═══ */
+.sc{position:fixed;inset:0;display:none;z-index:10;}
+.sc.on{display:flex;}
+#sL{align-items:center;justify-content:center;}
+#sD{flex-direction:column;}
+/* ═══ TOAST ═══ */
+#toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--bg2);border:1px solid var(--a2);border-radius:10px;padding:11px 18px;font-size:12px;font-weight:500;color:var(--a1);box-shadow:var(--glow);transform:translateY(16px);opacity:0;transition:all .35s;pointer-events:none;font-family:'JetBrains Mono',monospace;max-width:320px;}
+#toast.on{transform:translateY(0);opacity:1;}
+/* ═══ LOADING ═══ */
+#lov{position:fixed;inset:0;z-index:8000;background:rgba(4,6,14,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;}
+#lov.on{opacity:1;pointer-events:all;}
+.llw{width:74px;height:74px;border-radius:16px;border:2px solid var(--a2);background:var(--a3);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:18px;box-shadow:var(--glow);}
+.llw img{width:100%;height:100%;object-fit:contain;display:none;}
+.lbn{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--a1);margin-bottom:4px;}
+.lbs{font-size:9px;color:var(--txt3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:26px;}
+.lbt{width:260px;height:3px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-bottom:24px;}
+.lbf{height:100%;width:0%;background:var(--grad2);border-radius:3px;transition:width .45s;box-shadow:0 0 10px var(--a1);}
+.lls{display:flex;flex-direction:column;gap:6px;min-width:280px;}
+.ll{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.18);display:flex;align-items:center;gap:9px;transition:all .3s;}
+.ll .ld{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.ll.cur{color:var(--a1);}
+.ll.done{color:#00e676;opacity:.7;}
+/* ═══ LOGIN ═══ */
+.lcard{display:grid;grid-template-columns:380px 320px;background:var(--bg1);border-radius:20px;border:1px solid var(--brd);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7),var(--glow);position:relative;animation:ci .8s cubic-bezier(.16,1,.3,1) both;}
+@keyframes ci{from{opacity:0;transform:translateY(28px) scale(.96);}to{opacity:1;transform:none;}}
+.lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:2;background:var(--grad2);animation:bflow 3s linear infinite;background-size:200%;}
+@keyframes bflow{to{background-position:200% 0;}}
+.lleft{padding:38px 36px;display:flex;flex-direction:column;align-items:center;z-index:1;}
+.lzone{width:82px;height:82px;border-radius:16px;border:2px dashed rgba(255,255,255,.15);background:rgba(255,255,255,.03);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;margin-bottom:14px;}
+.lzone:hover{border-color:var(--a2);box-shadow:var(--glow);}
+.lzone input{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;}
+.lzone img#lgi{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none;padding:7px;}
+.lzi{font-size:24px;opacity:.3;z-index:1;}
+.lzt{font-size:7.5px;color:rgba(255,255,255,.2);letter-spacing:.1em;z-index:1;font-family:'JetBrains Mono',monospace;}
+.cnm{font-family:'Cinzel',serif;font-size:12.5px;font-weight:700;color:var(--a1);letter-spacing:.05em;text-align:center;background:transparent;border:none;border-bottom:1px solid transparent;width:100%;outline:none;padding:3px 4px;transition:all .3s;margin-bottom:2px;}
+.cnm:focus{border-color:rgba(255,255,255,.2);}
+.csb{font-size:9px;color:var(--txt3);letter-spacing:.12em;text-align:center;background:transparent;border:none;width:100%;outline:none;padding:2px 4px;margin-bottom:22px;}
+.odv{display:flex;align-items:center;gap:8px;width:100%;margin-bottom:16px;}
+.odv::before,.odv::after{content:'';flex:1;height:1px;background:var(--brd);}
+.odv span{font-size:8px;color:var(--txt3);letter-spacing:.15em;font-family:'JetBrains Mono',monospace;}
+.fg{display:flex;flex-direction:column;gap:5px;width:100%;margin-bottom:12px;}
+.fg label{font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
+.fiw{position:relative;}
+.fico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.3;}
+.feye{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;opacity:.3;cursor:pointer;transition:opacity .2s;}
+.feye:hover{opacity:.7;}
+.fi{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--brd);border-radius:8px;padding:10px 36px;color:var(--txt);font-size:13px;outline:none;transition:all .28s;}
+.fi::placeholder{color:var(--txt3);}
+.fi:focus{border-color:var(--a2);background:var(--a3);box-shadow:0 0 0 3px rgba(0,229,255,.06);}
+.fsel{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300bcd4' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:34px;cursor:pointer;}
+.fsel option{background:#0a1424;color:var(--txt);}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;}
+.ropt{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:18px;}
+.chk{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:10px;color:var(--txt2);}
+.chk input{accent-color:var(--a1);}
+.fgt{font-size:10px;color:var(--a2);text-decoration:none;opacity:.7;}
+.fgt:hover{opacity:1;}
+.btnl{width:100%;padding:12px;border-radius:9px;border:none;background:var(--grad2);color:#fff;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .3s;font-family:'Cinzel',serif;}
+.btnl:hover{transform:translateY(-2px);box-shadow:var(--glow);}
+/* RIGHT */
+.lright{background:var(--grad);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 28px;position:relative;overflow:hidden;z-index:1;}
+.lright::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.07),transparent 60%);}
+.rng{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.08);animation:rp 4s ease-in-out infinite;}
+.r1{width:180px;height:180px;top:-60px;right:-60px;}
+.r2{width:110px;height:110px;bottom:20px;left:-30px;animation-delay:-1.5s;}
+@keyframes rp{0%,100%{transform:scale(1);opacity:.6;}50%{transform:scale(1.15);opacity:.15;}}
+.rgt{font-size:9px;letter-spacing:.25em;color:rgba(255,255,255,.45);text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:8px;}
+.rtt{font-family:'Cinzel',serif;font-size:22px;font-weight:900;color:#fff;text-align:center;line-height:1.2;margin-bottom:6px;}
+.rsb{font-size:10.5px;color:rgba(255,255,255,.5);text-align:center;line-height:1.6;margin-bottom:28px;font-weight:300;}
+.btnr{padding:10px 28px;border-radius:30px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;font-family:'Cinzel',serif;transition:all .3s;}
+.btnr:hover{background:rgba(255,255,255,.15);}
+.rsd{display:flex;align-items:center;gap:7px;margin-top:24px;font-size:9px;color:rgba(255,255,255,.35);font-family:'JetBrains Mono',monospace;}
+.rdot{width:5px;height:5px;border-radius:50%;background:#00e676;box-shadow:0 0 7px #00e676;animation:bk 2s infinite;}
+@keyframes bk{0%,100%{opacity:1;}50%{opacity:.3;}}
+/* Theme FAB */
+.tfab{position:fixed;bottom:24px;left:24px;z-index:400;display:flex;flex-direction:column;gap:6px;align-items:center;}
+.tfl{font-size:7px;color:rgba(255,255,255,.25);font-family:'JetBrains Mono',monospace;letter-spacing:.1em;writing-mode:vertical-rl;margin-bottom:2px;}
+.tb{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid rgba(255,255,255,.1);transition:all .2s;}
+.tb:hover{transform:scale(1.2);border-color:rgba(255,255,255,.4);}
+.tb.on{border-color:#fff;box-shadow:0 0 10px currentColor;}
+/* ═══ TOPBAR ═══ */
+.topbar{height:52px;background:rgba(4,6,14,.97);border-bottom:1px solid var(--brd);display:flex;align-items:center;padding:0 18px;gap:12px;position:sticky;top:0;z-index:300;flex-shrink:0;backdrop-filter:blur(10px);}
+.topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--a1),transparent);opacity:.2;}
+.tbl{display:flex;align-items:center;gap:9px;flex-shrink:0;}
+.tblx{width:32px;height:32px;border-radius:8px;border:1px solid var(--brd2);background:var(--a3);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:15px;}
+.tblx img{width:100%;height:100%;object-fit:contain;display:none;}
+.tbn{font-family:'Cinzel',serif;font-size:11.5px;font-weight:700;color:var(--a1);}
+.tsp{width:1px;height:26px;background:var(--brd);flex-shrink:0;}
+.tmods{display:flex;gap:2px;overflow-x:auto;flex:1;padding:2px 0;}
+.tmods::-webkit-scrollbar{height:0;}
+.tmd{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:7px;border:1px solid transparent;cursor:pointer;transition:all .2s;white-space:nowrap;color:rgba(255,255,255,.3);font-size:10.5px;font-weight:500;}
+.tmd .tmdot{width:5px;height:5px;border-radius:50%;background:var(--mc,var(--a1));box-shadow:0 0 5px var(--mc,var(--a1));flex-shrink:0;opacity:.4;transition:opacity .2s;}
+.tmd:hover{color:rgba(255,255,255,.65);background:rgba(255,255,255,.03);}
+.tmd:hover .tmdot,.tmd.on .tmdot{opacity:1;}
+.tmd.on{color:#fff;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08);}
+.tmd.lck{opacity:.25;cursor:not-allowed;pointer-events:none;}
+.tright{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0;}
+.tths{display:flex;gap:4px;}
+.tth{width:14px;height:14px;border-radius:50%;cursor:pointer;border:1.5px solid transparent;transition:all .2s;}
+.tth.on{border-color:#fff;box-shadow:0 0 7px currentColor;transform:scale(1.25);}
+.tuser{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:var(--txt3);text-align:right;line-height:1.5;}
+.tuser b{color:var(--a1);display:block;font-size:9px;}
+.btne{padding:4px 11px;border-radius:6px;border:1px solid rgba(255,82,82,.3);background:transparent;color:#ff5252;font-size:8px;font-weight:700;letter-spacing:.1em;font-family:'JetBrains Mono',monospace;cursor:pointer;transition:all .2s;}
+.btne:hover{background:rgba(255,82,82,.1);}
+/* ═══ DASH BODY ═══ */
+.dbody{flex:1;overflow-y:auto;background:var(--bg0);}
+.mpanel{display:none;padding:20px;animation:pi .3s ease both;}
+.mpanel.on{display:block;}
+@keyframes pi{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+/* Module header */
+.mhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.mhdr-l{display:flex;align-items:center;gap:12px;}
+.mic{width:44px;height:44px;border-radius:11px;background:var(--a3);border:1px solid var(--a2);display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:var(--glow);}
+.mtt{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--a1);}
+.mtt small{display:block;font-family:'Exo 2',sans-serif;font-size:10px;color:var(--txt3);font-weight:300;letter-spacing:.1em;margin-top:2px;}
+/* Sub-tabs */
+.stabs{display:flex;gap:4px;margin-bottom:18px;border-bottom:1px solid var(--brd);padding-bottom:0;}
+.stab{padding:7px 14px;font-size:10.5px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px;letter-spacing:.04em;}
+.stab:hover{color:var(--txt);}
+.stab.on{color:var(--a1);border-color:var(--a1);}
+/* KPI row */
+.krow{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:16px;}
+.kc{background:var(--bg2);border:1px solid var(--brd);border-radius:10px;padding:14px 13px;position:relative;overflow:hidden;transition:all .24s;}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--mc,var(--a1));}
+.kc:hover{border-color:var(--mc,var(--a1));transform:translateY(-2px);}
+.kv{font-family:'Cinzel',serif;font-size:18px;font-weight:700;color:var(--mc,var(--a1));margin-bottom:2px;}
+.kl{font-size:9.5px;color:var(--txt3);}
+.ki{font-size:18px;margin-bottom:6px;}
+/* Action buttons bar */
+.abar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.abtn{padding:7px 14px;border-radius:7px;border:1px solid var(--a2);background:var(--a3);color:var(--a1);font-size:11px;font-weight:600;cursor:pointer;transition:all .22s;display:flex;align-items:center;gap:6px;}
+.abtn:hover{background:rgba(0,229,255,.18);}
+.abtn.sec{border-color:var(--brd);background:rgba(255,255,255,.04);color:var(--txt2);}
+.abtn.sec:hover{border-color:var(--a2);color:var(--a1);}
+.abtn.red{border-color:rgba(255,82,82,.3);background:rgba(255,82,82,.07);color:#ff5252;}
+.abtn.red:hover{background:rgba(255,82,82,.15);}
+/* Tables */
+.tbox{background:var(--bg2);border:1px solid var(--brd);border-radius:11px;overflow:hidden;}
+.thdr{padding:11px 15px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.tttl{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;color:var(--txt2);letter-spacing:.12em;}
+.tscroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead th{padding:8px 13px;font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--brd);text-align:left;white-space:nowrap;}
+tbody td{padding:8px 13px;font-size:11.5px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--txt);transition:background .15s;white-space:nowrap;}
+tbody tr:hover td{background:rgba(255,255,255,.02);}
+tbody tr:last-child td{border:none;}
+td.num{font-family:'JetBrains Mono',monospace;font-size:11px;text-align:right;}
+td.acts{text-align:right;white-space:nowrap;}
+.empty{padding:32px;text-align:center;color:var(--txt3);font-size:12px;}
+/* Badges */
+.bdg{display:inline-flex;padding:2px 8px;border-radius:12px;font-size:8px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.05em;}
+.bg{background:rgba(0,230,118,.1);color:#00e676;border:1px solid rgba(0,230,118,.2);}
+.by{background:rgba(255,171,64,.1);color:#ffab40;border:1px solid rgba(255,171,64,.2);}
+.br{background:rgba(255,82,82,.1);color:#ff5252;border:1px solid rgba(255,82,82,.2);}
+.bb{background:rgba(0,229,255,.1);color:#00e5ff;border:1px solid rgba(0,229,255,.2);}
+.bp{background:rgba(213,0,249,.1);color:#ea80fc;border:1px solid rgba(213,0,249,.2);}
+/* Compliance bar */
+.cbar{margin-top:16px;padding:10px 14px;border-radius:9px;background:rgba(255,215,64,.04);border:1px solid rgba(255,215,64,.12);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.cbt{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:700;color:#ffa000;letter-spacing:.15em;white-space:nowrap;}
+.cbc{display:flex;gap:4px;flex-wrap:wrap;}
+.cc{padding:2px 8px;border-radius:12px;border:1px solid rgba(255,160,0,.3);font-size:7.5px;font-weight:700;color:#ffa000;font-family:'JetBrains Mono',monospace;}
+/* ═══ MODAL ═══ */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.mbg.on{display:flex;}
+.mbox{background:var(--bg1);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:28px;width:520px;max-width:96vw;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.8),var(--glow);animation:mi .3s cubic-bezier(.16,1,.3,1);}
+@keyframes mi{from{opacity:0;transform:scale(.93);}to{opacity:1;transform:none;}}
+.mtitle{font-family:'Cinzel',serif;font-size:15px;font-weight:700;color:var(--a1);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.mf{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
+.mf label{font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);font-family:'JetBrains Mono',monospace;}
+.mi2{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--brd);border-radius:8px;padding:9px 12px;color:var(--txt);font-size:12.5px;outline:none;transition:all .25s;}
+.mi2:focus{border-color:var(--a2);background:var(--a3);}
+.mi2 option{background:#0a1424;}
+.mg2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:18px;}
+.mbcancel{padding:8px 16px;border-radius:7px;border:1px solid var(--brd);background:transparent;color:var(--txt2);font-size:11px;cursor:pointer;transition:all .2s;}
+.mbcancel:hover{border-color:rgba(255,255,255,.2);}
+.mbsave{padding:8px 20px;border-radius:7px;border:none;background:var(--grad2);color:#fff;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;}
+.mbsave:hover{opacity:.9;}
+/* Calculation preview */
+.calc-box{background:rgba(0,229,255,.06);border:1px solid var(--brd2);border-radius:8px;padding:12px;margin-top:12px;}
+.calc-row{display:flex;justify-content:space-between;font-size:11.5px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.calc-row:last-child{border:none;font-weight:700;font-size:13px;color:var(--a1);}
+.calc-row span{color:var(--txt2);}
+/* Permisos */
+.permbox{background:var(--bg2);border:1px solid var(--brd);border-radius:11px;overflow:hidden;}
+.tog{position:relative;display:inline-block;width:32px;height:17px;}
+.tog input{opacity:0;width:0;height:0;}
+.tsl{position:absolute;inset:0;background:rgba(255,255,255,.07);border-radius:9px;border:1px solid var(--brd);cursor:pointer;transition:background .25s;}
+.tsl::before{content:'';position:absolute;left:3px;top:3px;width:9px;height:9px;border-radius:50%;background:#3a5070;transition:all .25s;}
+.tog input:checked+.tsl{background:var(--a2);border-color:var(--a1);}
+.tog input:checked+.tsl::before{transform:translateX(14px);background:#fff;box-shadow:0 0 5px var(--a1);}
+.userav{width:28px;height:28px;border-radius:50%;background:var(--a3);border:1px solid var(--a2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--a1);font-family:'JetBrains Mono',monospace;flex-shrink:0;}
+.rsel{background:rgba(255,255,255,.04);border:1px solid var(--brd);border-radius:6px;padding:3px 7px;color:var(--txt2);font-size:9.5px;outline:none;cursor:pointer;}
+.rsel option{background:#0a1424;}
+@media(max-width:720px){.lcard{grid-template-columns:1fr;width:99vw;}.lright{display:none;}.krow{grid-template-columns:repeat(2,1fr);}table{font-size:10px;}}
+</style>
+</head>
+<body>
+<div class="bgw"><div class="bgg"></div><div class="bgo o1"></div><div class="bgo o2"></div></div>
+<div class="scl"></div>
+<div id="toast"></div>
+
+<!-- LOADING -->
+<div id="lov">
+  <div class="llw" id="llw"><img id="lli" alt=""><span id="llico">🏢</span></div>
+  <div class="lbn" id="lbn">Márquez &amp; Olivo</div>
+  <div class="lbs">Sistema Administrativo y Contable</div>
+  <div class="lbt"><div class="lbf" id="lbf"></div></div>
+  <div class="lls" id="lls"></div>
+</div>
+
+<!-- MODAL -->
+<div class="mbg" id="modal">
+  <div class="mbox">
+    <div class="mtitle" id="mTitle"></div>
+    <div id="mBody"></div>
+    <div class="mbtns">
+      <button class="mbcancel" onclick="closeModal()">Cancelar</button>
+      <button class="mbsave" id="mSave">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- THEME FAB -->
+<div class="tfab" id="tfab">
+  <div class="tfl">COLOR</div>
+  <button class="tb on" data-t="cyan" style="background:#00e5ff" onclick="setTheme('cyan',this)"></button>
+  <button class="tb" data-t="purple" style="background:#d500f9" onclick="setTheme('purple',this)"></button>
+  <button class="tb" data-t="green" style="background:#00e676" onclick="setTheme('green',this)"></button>
+  <button class="tb" data-t="gold" style="background:#ffd740" onclick="setTheme('gold',this)"></button>
+  <button class="tb" data-t="pink" style="background:#ff4081" onclick="setTheme('pink',this)"></button>
+  <button class="tb" data-t="white" style="background:#ffffff" onclick="setTheme('white',this)"></button>
+</div>
+
+<!-- ═══ LOGIN ═══ -->
+<div class="sc on" id="sL">
+<div class="lcard">
+  <div class="lleft">
+    <div class="lzone"><input type="file" accept="image/*" onchange="loadLogo(this)"><img id="lgi" alt=""><span class="lzi">🏢</span><span class="lzt">LOGO</span></div>
+    <input class="cnm" id="coN" type="text" value="Márquez &amp; Olivo" spellcheck="false">
+    <input class="csb" id="coS" type="text" value="Soluciones Administrativas y Contable" spellcheck="false">
+    <div class="odv"><span>ACCESO AL SISTEMA</span></div>
+    <div class="fg"><label>Empresa</label><div class="fiw"><span class="fico">🏢</span><select class="fi fsel" id="empS"><option value="">— Empresa —</option><option value="p1">Márquez &amp; Olivo, C.A. (J-40123456-7)</option><option value="p2">Mi Empresa Principal, C.A. (J-12345678-9)</option><option value="p3">Grupo Corporativo Holdings, C.A.</option><option value="p4">Filial Norte, C.A.</option></select></div></div>
+    <div class="row2">
+      <div class="fg" style="margin-bottom:0"><label>Sucursal</label><div class="fiw"><span class="fico">📍</span><select class="fi fsel" id="sucS" style="padding-left:34px"><option value="ccs">Caracas</option><option value="mbo">Maracaibo</option><option value="vlc">Valencia</option><option value="bqto">Barquisimeto</option><option value="mcy">Maracay</option><option value="pzo">Puerto Ordaz</option></select></div></div>
+      <div class="fg" style="margin-bottom:0"><label>Período</label><div class="fiw"><span class="fico">📅</span><select class="fi fsel" id="perS" style="padding-left:34px"><option>2025</option><option>2024</option><option>2023</option></select></div></div>
+    </div>
+    <div style="height:12px"></div>
+    <div class="fg"><label>Usuario</label><div class="fiw"><span class="fico">👤</span><input class="fi" id="uIn" type="text" placeholder="usuario@empresa.com"></div></div>
+    <div class="fg" style="margin-bottom:0"><label>Contraseña</label><div class="fiw"><span class="fico">🔑</span><input class="fi" id="pIn" type="password" placeholder="••••••••••••"><span class="feye" onclick="tPass()">👁</span></div></div>
+    <div style="height:10px"></div>
+    <div class="ropt"><label class="chk"><input type="checkbox"><span>Recordarme</span></label><a class="fgt" href="#">¿Olvidaste tu contraseña?</a></div>
+    <button class="btnl" onclick="doLogin()">⚡ &nbsp;INGRESAR AL SISTEMA</button>
+  </div>
+  <div class="lright">
+    <div class="rng r1"></div><div class="rng r2"></div>
+    <div class="rgt">Sistema Integrado</div>
+    <div class="rtt" id="rpT">Márquez<br>&amp; Olivo</div>
+    <div class="rsb">Soluciones Administrativas<br>y Contable · Venezuela</div>
+    <button class="btnr" onclick="toast('Para registrarte comunícate con el administrador')">REGISTRARSE</button>
+    <div class="rsd"><div class="rdot"></div>SAW v4.2 · Activo · SSL/TLS</div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="sc" id="sD">
+  <nav class="topbar">
+    <div class="tbl"><div class="tblx" id="tblx"><img id="tli" alt=""><span id="tlio">🏢</span></div><div class="tbn" id="tbn">Márquez &amp; Olivo</div></div>
+    <div class="tsp"></div>
+    <div class="tmods" id="tmods"></div>
+    <div class="tsp"></div>
+    <div class="tright">
+      <div class="tths">
+        <span class="tth on" data-t="cyan" style="background:#00e5ff" onclick="setTheme('cyan',this)" title="Cyan"></span>
+        <span class="tth" data-t="purple" style="background:#d500f9" onclick="setTheme('purple',this)" title="Morado"></span>
+        <span class="tth" data-t="green" style="background:#00e676" onclick="setTheme('green',this)" title="Verde"></span>
+        <span class="tth" data-t="gold" style="background:#ffd740" onclick="setTheme('gold',this)" title="Dorado"></span>
+        <span class="tth" data-t="pink" style="background:#ff4081" onclick="setTheme('pink',this)" title="Rosa"></span>
+        <span class="tth" data-t="white" style="background:#ffffff" onclick="setTheme('white',this)" title="Blanco"></span>
+      </div>
+      <div class="tsp"></div>
+      <div class="tuser"><b id="tusr">—</b><span id="tinf">—</span></div>
+      <button class="btne" onclick="doLogout()">✕ SALIR</button>
+    </div>
+  </nav>
+  <div class="dbody" id="dbody"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   DATA STORE
+═══════════════════════════════════════ */
+const DB = {
+  /* Administrativo */
+  productos:[
+    {id:'P001',nombre:'Papel Bond A4 Resma',cat:'Papelería',unidad:'Resma',stock:150,precio_usd:5.50,precio_ves:200.75},
+    {id:'P002',nombre:'Tóner Laser HP',cat:'Insumos',unidad:'Unid',stock:12,precio_usd:45.00,precio_ves:1642.50},
+    {id:'P003',nombre:'Silla Ejecutiva',cat:'Mobiliario',unidad:'Unid',stock:5,precio_usd:120.00,precio_ves:4380.00},
+  ],
+  proveedores:[
+    {id:'V001',nombre:'Distribuidora Alfa, C.A.',rif:'J-30001234-5',contacto:'Ana Martínez',telefono:'0212-555-0001',email:'ventas@alfa.com'},
+    {id:'V002',nombre:'Suministros Beta, S.A.',rif:'J-29876543-2',contacto:'Carlos López',telefono:'0414-555-0002',email:'info@beta.com'},
+  ],
+  ordenes:[
+    {id:'OC-2025-001',proveedor:'V001',fecha:'2025-04-01',total_usd:550.00,estado:'Aprobada',items:[{prod:'P001',qty:100,precio:5.50}]},
+  ],
+  /* Contabilidad */
+  cuentas:[
+    {cod:'1.1.1',nombre:'Caja',tipo:'Activo',naturaleza:'Deudora'},
+    {cod:'1.1.2',nombre:'Banco BDV',tipo:'Activo',naturaleza:'Deudora'},
+    {cod:'1.2.1',nombre:'Cuentas por Cobrar Clientes',tipo:'Activo',naturaleza:'Deudora'},
+    {cod:'2.1.1',nombre:'Cuentas por Pagar Proveedores',tipo:'Pasivo',naturaleza:'Acreedora'},
+    {cod:'2.1.2',nombre:'IVA por Pagar',tipo:'Pasivo',naturaleza:'Acreedora'},
+    {cod:'3.1.1',nombre:'Capital Social',tipo:'Patrimonio',naturaleza:'Acreedora'},
+    {cod:'4.1.1',nombre:'Ingresos por Ventas',tipo:'Ingreso',naturaleza:'Acreedora'},
+    {cod:'5.1.1',nombre:'Costo de Ventas',tipo:'Egreso',naturaleza:'Deudora'},
+    {cod:'5.2.1',nombre:'Gastos Administrativos',tipo:'Egreso',naturaleza:'Deudora'},
+    {cod:'5.2.2',nombre:'Gastos de Nómina',tipo:'Egreso',naturaleza:'Deudora'},
+  ],
+  asientos:[],
+  asientoNumero:1,
+  /* GH */
+  empleados:[
+    {id:'E001',ci:'V-12345678',nombre:'García, María',cargo:'Contadora',dpto:'Administración',salario_usd:800,fecha_ingreso:'2022-01-15',status:'Activo'},
+    {id:'E002',ci:'V-15678901',nombre:'López, Juan',cargo:'Almacenista',dpto:'Operaciones',salario_usd:450,fecha_ingreso:'2021-06-01',status:'Activo'},
+    {id:'E003',ci:'V-18234567',nombre:'Rodríguez, Ana',cargo:'Facturadora',dpto:'Ventas',salario_usd:500,fecha_ingreso:'2023-03-10',status:'Activo'},
+  ],
+  nominas:[],
+  /* Facturación */
+  clientes:[
+    {id:'C001',nombre:'Comercial XYZ, C.A.',rif:'J-30001234-5',direccion:'Av. Principal, Caracas',email:'compras@xyz.com',telefono:'0212-555-9001'},
+    {id:'C002',nombre:'Inversiones ABC, S.A.',rif:'J-29876543-2',direccion:'Calle Real, Valencia',email:'admin@abc.com',telefono:'0241-555-9002'},
+    {id:'C003',nombre:'Empresa DEF, C.A.',rif:'J-10234567-8',direccion:'Zona Industrial, Maracaibo',email:'ventas@def.com',telefono:'0261-555-9003'},
+  ],
+  facturas:[
+    {id:'F-00000001',cliente:'C001',fecha:'2025-04-01',base:1200,iva:192,igtf:0,total:1392,estado:'Pagada',concepto:'Venta de artículos de oficina',tipo:'gravada'},
+    {id:'F-00000002',cliente:'C002',fecha:'2025-04-02',base:4500,iva:720,igtf:135,total:5355,estado:'Por cobrar',concepto:'Prestación de servicios contables',tipo:'gravada'},
+  ],
+  facturaNum:3,
+  /* Audit */
+  auditLog:[
+    {evento:'Sistema iniciado',usuario:'sistema',ip:'localhost',modulo:'Sistema',fecha:new Date().toLocaleString()},
+  ],
+  /* Usuarios/Permisos */
+  usuarios:[
+    {nombre:'Admin Principal',email:'admin@empresa.com',role:'admin',perms:{administrativo:1,contabilidad:1,gh:1,gfactura:1,ivarenta:1,inflacion:1,declaracion:1,cyber:1,permisos:1}},
+    {nombre:'María García',email:'mgarcia@empresa.com',role:'contador',perms:{administrativo:0,contabilidad:1,gh:0,gfactura:1,ivarenta:1,inflacion:1,declaracion:1,cyber:0,permisos:0}},
+    {nombre:'Juan López',email:'jlopez@empresa.com',role:'rrhh',perms:{administrativo:1,contabilidad:0,gh:1,gfactura:0,ivarenta:0,inflacion:0,declaracion:0,cyber:0,permisos:0}},
+    {nombre:'Ana Rodríguez',email:'arodu@empresa.com',role:'facturador',perms:{administrativo:1,contabilidad:0,gh:0,gfactura:1,ivarenta:0,inflacion:0,declaracion:0,cyber:0,permisos:0}},
+  ],
+};
+
+/* IPC histórico Venezuela */
+const IPC = {2022:{ene:201.8,feb:215.3,mar:234.6,abr:255.2,may:278.1,jun:305.4,jul:335.8,ago:370.2,sep:408.5,oct:450.1,nov:472.8,dic:498.2},
+  2023:{ene:521.4,feb:556.7,mar:598.3,abr:642.1,may:698.4,jun:762.5,jul:834.2,ago:920.8,sep:1024.5,oct:1124.8,nov:1188.3,dic:1240.5},
+  2024:{ene:1350.2,feb:1498.7,mar:1680.4,abr:1892.3,may:2145.6,jun:2445.8,jul:2789.3,ago:3100.1,sep:3280.6,oct:3400.2,nov:3500.8,dic:3552.4}};
+
+/* Tasas VE */
+const TAX = {
+  IVA:0.16, IGTF:0.03,
+  IVSS_W:0.04, IVSS_P:0.09,
+  LPH_W:0.005, LPH_P:0.02,
+  FAOV_W:0.01, FAOV_P:0.02,
+  INCES_P:0.02,
+  BCV_USD:36.5
+};
+
+/* Módulos config */
+const MODS=[
+  {id:'administrativo',short:'Inventario',color:'#00e5ff',icon:'📦'},
+  {id:'contabilidad',short:'Contab.',color:'#ce93d8',icon:'📒'},
+  {id:'gh',short:'Nómina',color:'#00e676',icon:'👥'},
+  {id:'gfactura',short:'Factura',color:'#ffd740',icon:'🧾'},
+  {id:'ivarenta',short:'IVA/ISR',color:'#ffab40',icon:'📑'},
+  {id:'inflacion',short:'Inflac.',color:'#ff5252',icon:'📈'},
+  {id:'declaracion',short:'Declar.',color:'#40c4ff',icon:'📤'},
+  {id:'cyber',short:'Cyber',color:'#69f0ae',icon:'🛡️'},
+  {id:'permisos',short:'Permisos',color:'#ea80fc',icon:'🗺️'},
+];
+const LSTEPS=['Verificando credenciales...','Autenticando SENIAT...','Cargando módulos SAW...','Sincronizando BD local...','Aplicando normativas VE...','Preparando entorno...','Acceso concedido ✓'];
+let curMod='administrativo', logoUrl=null, curUser=null;
+
+/* ═══ UI HELPERS ═══ */
+let _tt;
+function toast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('on');clearTimeout(_tt);_tt=setTimeout(()=>e.classList.remove('on'),3200);}
+function setTheme(t,el){
+  document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.tb,.tth').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll(`[data-t="${t}"]`).forEach(b=>b.classList.add('on'));
+}
+function tPass(){const f=document.getElementById('pIn');f.type=f.type==='password'?'text':'password';}
+function loadLogo(i){if(!i.files[0])return;const r=new FileReader();r.onload=e=>{logoUrl=e.target.result;document.getElementById('lgi').src=logoUrl;document.getElementById('lgi').style.display='block';document.querySelector('.lzi').style.display='none';document.querySelector('.lzt').style.display='none';syncLogo();toast('Logo cargado');};r.readAsDataURL(i.files[0]);}
+function syncLogo(){if(!logoUrl)return;['tli','lli'].forEach(id=>{const e=document.getElementById(id);if(e){e.src=logoUrl;e.style.display='block';}});['tlio','llico'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});}
+document.getElementById('coN').addEventListener('input',e=>{document.getElementById('lbn').textContent=e.target.value;document.getElementById('tbn').textContent=e.target.value;document.getElementById('rpT').innerHTML=e.target.value.replace('&amp;','&').replace(' & ','<br>&')||'Márquez<br>&amp; Olivo';});
+function fmt(n,dec=2){return Number(n).toLocaleString('es-VE',{minimumFractionDigits:dec,maximumFractionDigits:dec});}
+function fmtD(s){return new Date(s+'T00:00:00').toLocaleDateString('es-VE',{day:'2-digit',month:'2-digit',year:'numeric'});}
+function genId(pref,arr){return pref+String(arr.length+1).padStart(4,'0');}
+function logAudit(evento,modulo){DB.auditLog.unshift({evento,usuario:curUser?.email||'?',ip:'192.168.1.'+Math.floor(Math.random()*50+10),modulo,fecha:new Date().toLocaleString()});}
+
+/* ═══ MODAL SYSTEM ═══ */
+function openModal(title,bodyHTML,onSave){
+  document.getElementById('mTitle').innerHTML=title;
+  document.getElementById('mBody').innerHTML=bodyHTML;
+  document.getElementById('mSave').onclick=onSave;
+  document.getElementById('modal').classList.add('on');
+}
+function closeModal(){document.getElementById('modal').classList.remove('on');}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
+
+/* ═══ LOGIN ═══ */
+function doLogin(){
+  const u=document.getElementById('uIn').value.trim();
+  const p=document.getElementById('pIn').value.trim();
+  const emp=document.getElementById('empS').value;
+  if(!u){toast('⚠ Ingresa tu usuario');return;}
+  if(!p){toast('⚠ Ingresa tu contraseña');return;}
+  if(!emp){toast('⚠ Selecciona una empresa');return;}
+  curUser=DB.usuarios.find(x=>x.email.toLowerCase()===u.toLowerCase())||DB.usuarios[0];
+  curMod=MODS.find(m=>curUser.perms[m.id])?.id||'administrativo';
+  const empT=document.getElementById('empS').options[document.getElementById('empS').selectedIndex].text;
+  const sucT=document.getElementById('sucS').options[document.getElementById('sucS').selectedIndex].text;
+  const per=document.getElementById('perS').value;
+  startLoad(()=>openDash(u,empT,sucT,per));
+}
+function startLoad(cb){
+  const ov=document.getElementById('lov'),ls=document.getElementById('lls'),bar=document.getElementById('lbf');
+  syncLogo();
+  ls.innerHTML=LSTEPS.map((s,i)=>`<div class="ll" id="ll${i}"><div class="ld"></div>${s}</div>`).join('');
+  bar.style.width='0%';ov.classList.add('on');
+  let i=0;const iv=setInterval(()=>{
+    if(i>0)document.getElementById(`ll${i-1}`).className='ll done';
+    if(i<LSTEPS.length){document.getElementById(`ll${i}`).className='ll cur';bar.style.width=((i+1)/LSTEPS.length*100)+'%';i++;}
+    else{clearInterval(iv);setTimeout(()=>{ov.classList.remove('on');cb();},500);}
+  },480);
+}
+function openDash(user,emp,suc,per){
+  const pills=document.getElementById('tmods');
+  pills.innerHTML=MODS.filter(m=>curUser.perms[m.id]).map(m=>
+    `<div class="tmd${m.id===curMod?' on':''}" style="--mc:${m.color}" onclick="swMod('${m.id}',this)">`+
+    `<span class="tmdot"></span>${m.icon} ${m.short}</div>`).join('');
+  document.getElementById('tusr').textContent=user;
+  document.getElementById('tinf').textContent=`${suc} · ${per}`;
+  document.getElementById('tbn').textContent=document.getElementById('coN').value;
+  syncLogo();
+  renderMod(curMod);
+  document.getElementById('sL').classList.remove('on');
+  document.getElementById('sD').classList.add('on');
+  document.getElementById('tfab').style.display='none';
+  logAudit('Inicio de sesión','Login');
+  toast(`Bienvenido, ${user}`);
+}
+function swMod(id,el){
+  document.querySelectorAll('.tmd').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  curMod=id;
+  renderMod(id);
+  logAudit(`Acceso módulo: ${id}`,id);
+}
+function doLogout(){
+  document.getElementById('sD').classList.remove('on');
+  document.getElementById('sL').classList.add('on');
+  document.getElementById('uIn').value='';document.getElementById('pIn').value='';
+  document.getElementById('tfab').style.display='flex';
+  toast('Sesión cerrada');
+}
+
+/* ═══ MODULE ROUTER ═══ */
+function renderMod(id){
+  const body=document.getElementById('dbody');
+  body.innerHTML='';
+  const div=document.createElement('div');
+  div.className='mpanel on';div.id='mp';
+  body.appendChild(div);
+  switch(id){
+    case'administrativo':renderAdmin(div);break;
+    case'contabilidad':renderContab(div);break;
+    case'gh':renderGH(div);break;
+    case'gfactura':renderFactura(div);break;
+    case'ivarenta':renderIVA(div);break;
+    case'inflacion':renderInflacion(div);break;
+    case'declaracion':renderDeclaracion(div);break;
+    case'cyber':renderCyber(div);break;
+    case'permisos':renderPermisos(div);break;
+  }
+}
+function modHeader(icon,title,sub,color){
+  return `<div class="mhdr"><div class="mhdr-l"><div class="mic" style="border-color:${color};background:${color}18">${icon}</div><div><div class="mtt" style="color:${color}">${title}<small>${sub}</small></div></div></div></div>`;
+}
+function subTabs(tabs,active,onchange){
+  return `<div class="stabs">${tabs.map(t=>`<div class="stab${t===active?' on':''}" onclick="${onchange}('${t}',this)">${t}</div>`).join('')}</div>`;
+}
+
+/* ═══════════════════════════════════════
+   ADMINISTRATIVO
+═══════════════════════════════════════ */
+let adminTab='Inventario';
+function renderAdmin(p,tab){
+  tab=tab||adminTab;adminTab=tab;
+  p.innerHTML=modHeader('📦','Módulo Administrativo','Inventario · Proveedores · Órdenes de Compra · Multi-moneda VES/USD','#00e5ff')+
+    subTabs(['Inventario','Proveedores','Órdenes de Compra'],'Inventario','changeAdminTab')+
+    `<div id="adminContent"></div>`;
+  const c=document.getElementById('adminContent');
+  if(tab==='Inventario')renderInventario(c);
+  else if(tab==='Proveedores')renderProveedores(c);
+  else renderOrdenes(c);
+}
+function changeAdminTab(t,el){
+  document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');
+  adminTab=t;renderInventario(document.getElementById('adminContent'),t);
+}
+function renderInventario(c){
+  const tot=DB.productos.reduce((a,p)=>a+p.stock*p.precio_usd,0);
+  const bajo=DB.productos.filter(p=>p.stock<10).length;
+  c.innerHTML=
+    `<div class="krow">
+      <div class="kc" style="--mc:#00e5ff"><div class="ki">📦</div><div class="kv">${DB.productos.length}</div><div class="kl">Productos registrados</div></div>
+      <div class="kc" style="--mc:#00e5ff"><div class="ki">💰</div><div class="kv">$${fmt(tot)}</div><div class="kl">Valor total inventario</div></div>
+      <div class="kc" style="--mc:#ff5252"><div class="ki">⚠️</div><div class="kv">${bajo}</div><div class="kl">Stock bajo (< 10)</div></div>
+      <div class="kc" style="--mc:#00e5ff"><div class="ki">💱</div><div class="kv">Bs.${TAX.BCV_USD}</div><div class="kl">Tasa BCV USD</div></div>
+    </div>
+    <div class="abar"><button class="abtn" onclick="newProducto()">➕ Nuevo Producto</button><button class="abtn sec" onclick="renderMod('administrativo')">🔄 Refrescar</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">INVENTARIO DE PRODUCTOS</span></div>
+    <div class="tscroll"><table><thead><tr><th>Código</th><th>Nombre</th><th>Categoría</th><th>U/M</th><th>Stock</th><th>Precio USD</th><th>Precio VES</th><th>Acciones</th></tr></thead>
+    <tbody>${DB.productos.map((p,i)=>`<tr>
+      <td><span class="bdg bb">${p.id}</span></td><td>${p.nombre}</td><td>${p.cat}</td><td>${p.unidad}</td>
+      <td class="num" style="color:${p.stock<10?'#ff5252':'inherit'}">${p.stock}</td>
+      <td class="num">$${fmt(p.precio_usd)}</td>
+      <td class="num">Bs.${fmt(p.precio_usd*TAX.BCV_USD)}</td>
+      <td class="acts"><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="editProducto(${i})">✏️</button> <button class="abtn red" style="padding:3px 8px;font-size:10px" onclick="delProducto(${i})">🗑️</button></td>
+    </tr>`).join('')||`<tr><td colspan="8" class="empty">Sin productos registrados</td></tr>`}
+    </tbody></table></div></div>
+    <div class="cbar"><span class="cbt">NORMATIVA</span><div class="cbc"><span class="cc">SUNDDE Precios</span><span class="cc">BCV Tasa Oficial</span><span class="cc">Multi-moneda VES/USD</span></div></div>`;
+}
+function renderProveedores(c){
+  c.innerHTML=
+    `<div class="abar"><button class="abtn" onclick="newProveedor()">➕ Nuevo Proveedor</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">PROVEEDORES REGISTRADOS</span></div>
+    <div class="tscroll"><table><thead><tr><th>Código</th><th>Nombre</th><th>RIF</th><th>Contacto</th><th>Teléfono</th><th>Email</th><th>Acciones</th></tr></thead>
+    <tbody>${DB.proveedores.map((v,i)=>`<tr>
+      <td><span class="bdg bb">${v.id}</span></td><td>${v.nombre}</td><td>${v.rif}</td>
+      <td>${v.contacto}</td><td>${v.telefono}</td><td>${v.email}</td>
+      <td class="acts"><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="editProv(${i})">✏️</button> <button class="abtn red" style="padding:3px 8px;font-size:10px" onclick="delProv(${i})">🗑️</button></td>
+    </tr>`).join('')||`<tr><td colspan="7" class="empty">Sin proveedores</td></tr>`}
+    </tbody></table></div></div>`;
+}
+function renderOrdenes(c){
+  const tot=DB.ordenes.reduce((a,o)=>a+o.total_usd,0);
+  c.innerHTML=
+    `<div class="krow">
+      <div class="kc" style="--mc:#00e5ff"><div class="ki">📋</div><div class="kv">${DB.ordenes.length}</div><div class="kl">Órdenes emitidas</div></div>
+      <div class="kc" style="--mc:#00e5ff"><div class="ki">💰</div><div class="kv">$${fmt(tot)}</div><div class="kl">Monto total órdenes</div></div>
+      <div class="kc" style="--mc:#ffab40"><div class="ki">⏳</div><div class="kv">${DB.ordenes.filter(o=>o.estado==='Pendiente').length}</div><div class="kl">Pendientes</div></div>
+    </div>
+    <div class="abar"><button class="abtn" onclick="newOrden()">➕ Nueva Orden de Compra</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">ÓRDENES DE COMPRA</span></div>
+    <div class="tscroll"><table><thead><tr><th>N° Orden</th><th>Proveedor</th><th>Fecha</th><th>Total USD</th><th>Total VES</th><th>Estado</th><th>Acciones</th></tr></thead>
+    <tbody>${DB.ordenes.map((o,i)=>{const v=DB.proveedores.find(p=>p.id===o.proveedor);return`<tr>
+      <td><span class="bdg bb">${o.id}</span></td><td>${v?v.nombre:o.proveedor}</td><td>${fmtD(o.fecha)}</td>
+      <td class="num">$${fmt(o.total_usd)}</td><td class="num">Bs.${fmt(o.total_usd*TAX.BCV_USD)}</td>
+      <td><span class="bdg ${o.estado==='Aprobada'?'bg':o.estado==='Pendiente'?'by':'br'}">${o.estado}</span></td>
+      <td class="acts"><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="aprobarOrden(${i})">✅</button> <button class="abtn red" style="padding:3px 8px;font-size:10px" onclick="delOrden(${i})">🗑️</button></td>
+    </tr>`;}).join('')||`<tr><td colspan="7" class="empty">Sin órdenes</td></tr>`}
+    </tbody></table></div></div>`;
+}
+function newProducto(){
+  openModal('📦 Nuevo Producto',
+    `<div class="mg2"><div class="mf"><label>Código</label><input class="mi2" id="fPid" placeholder="P004"></div><div class="mf"><label>Nombre</label><input class="mi2" id="fPnom" placeholder="Nombre del producto"></div></div>
+    <div class="mg2"><div class="mf"><label>Categoría</label><input class="mi2" id="fPcat" placeholder="Papelería, Insumos..."></div><div class="mf"><label>Unidad de Medida</label><input class="mi2" id="fPum" placeholder="Unid, Caja, Resma..."></div></div>
+    <div class="mg2"><div class="mf"><label>Stock inicial</label><input class="mi2" id="fPstk" type="number" placeholder="0"></div><div class="mf"><label>Precio USD</label><input class="mi2" id="fPpusd" type="number" step="0.01" placeholder="0.00" oninput="calcPrecioVES()"></div></div>
+    <div class="mf"><label>Precio VES (auto BCV: ${TAX.BCV_USD})</label><input class="mi2" id="fPpves" type="number" step="0.01" placeholder="0.00"></div>`,
+    ()=>{
+      const p={id:document.getElementById('fPid').value||genId('P',DB.productos),nombre:document.getElementById('fPnom').value,cat:document.getElementById('fPcat').value,unidad:document.getElementById('fPum').value,stock:+document.getElementById('fPstk').value,precio_usd:+document.getElementById('fPpusd').value,precio_ves:+document.getElementById('fPpves').value};
+      if(!p.nombre){toast('⚠ Ingresa el nombre del producto');return;}
+      DB.productos.push(p);closeModal();renderMod('administrativo');toast('Producto guardado');logAudit('Nuevo producto: '+p.nombre,'administrativo');
+    });
+}
+function calcPrecioVES(){const usd=+document.getElementById('fPpusd').value;const ves=document.getElementById('fPpves');if(ves)ves.value=(usd*TAX.BCV_USD).toFixed(2);}
+function editProducto(i){
+  const p=DB.productos[i];
+  openModal('✏️ Editar Producto',
+    `<div class="mg2"><div class="mf"><label>Código</label><input class="mi2" id="fPid" value="${p.id}"></div><div class="mf"><label>Nombre</label><input class="mi2" id="fPnom" value="${p.nombre}"></div></div>
+    <div class="mg2"><div class="mf"><label>Categoría</label><input class="mi2" id="fPcat" value="${p.cat}"></div><div class="mf"><label>Unidad</label><input class="mi2" id="fPum" value="${p.unidad}"></div></div>
+    <div class="mg2"><div class="mf"><label>Stock</label><input class="mi2" id="fPstk" type="number" value="${p.stock}"></div><div class="mf"><label>Precio USD</label><input class="mi2" id="fPpusd" type="number" step="0.01" value="${p.precio_usd}" oninput="calcPrecioVES()"></div></div>
+    <div class="mf"><label>Precio VES</label><input class="mi2" id="fPpves" type="number" step="0.01" value="${p.precio_ves}"></div>`,
+    ()=>{
+      DB.productos[i]={id:document.getElementById('fPid').value,nombre:document.getElementById('fPnom').value,cat:document.getElementById('fPcat').value,unidad:document.getElementById('fPum').value,stock:+document.getElementById('fPstk').value,precio_usd:+document.getElementById('fPpusd').value,precio_ves:+document.getElementById('fPpves').value};
+      closeModal();renderMod('administrativo');toast('Producto actualizado');
+    });
+}
+function delProducto(i){if(confirm(`¿Eliminar "${DB.productos[i].nombre}"?`)){DB.productos.splice(i,1);renderMod('administrativo');toast('Producto eliminado');}}
+function newProveedor(){
+  openModal('🤝 Nuevo Proveedor',
+    `<div class="mg2"><div class="mf"><label>Nombre / Razón Social</label><input class="mi2" id="fVnom" placeholder="Distribuidora XYZ, C.A."></div><div class="mf"><label>RIF</label><input class="mi2" id="fVrif" placeholder="J-30001234-5"></div></div>
+    <div class="mg2"><div class="mf"><label>Persona de Contacto</label><input class="mi2" id="fVcon" placeholder="Nombre contacto"></div><div class="mf"><label>Teléfono</label><input class="mi2" id="fVtel" placeholder="0212-555-0000"></div></div>
+    <div class="mf"><label>Email</label><input class="mi2" id="fVema" placeholder="ventas@empresa.com"></div>`,
+    ()=>{
+      const v={id:genId('V',DB.proveedores),nombre:document.getElementById('fVnom').value,rif:document.getElementById('fVrif').value,contacto:document.getElementById('fVcon').value,telefono:document.getElementById('fVtel').value,email:document.getElementById('fVema').value};
+      if(!v.nombre||!v.rif){toast('⚠ Nombre y RIF son requeridos');return;}
+      DB.proveedores.push(v);closeModal();renderMod('administrativo');toast('Proveedor guardado');
+    });
+}
+function editProv(i){const v=DB.proveedores[i];openModal('✏️ Editar Proveedor',`<div class="mg2"><div class="mf"><label>Nombre</label><input class="mi2" id="fVnom" value="${v.nombre}"></div><div class="mf"><label>RIF</label><input class="mi2" id="fVrif" value="${v.rif}"></div></div><div class="mg2"><div class="mf"><label>Contacto</label><input class="mi2" id="fVcon" value="${v.contacto}"></div><div class="mf"><label>Teléfono</label><input class="mi2" id="fVtel" value="${v.telefono}"></div></div><div class="mf"><label>Email</label><input class="mi2" id="fVema" value="${v.email}"></div>`,()=>{DB.proveedores[i]={...DB.proveedores[i],nombre:document.getElementById('fVnom').value,rif:document.getElementById('fVrif').value,contacto:document.getElementById('fVcon').value,telefono:document.getElementById('fVtel').value,email:document.getElementById('fVema').value};closeModal();renderMod('administrativo');toast('Proveedor actualizado');});}
+function delProv(i){if(confirm('¿Eliminar proveedor?')){DB.proveedores.splice(i,1);renderMod('administrativo');toast('Proveedor eliminado');}}
+function newOrden(){
+  const opts=DB.proveedores.map(v=>`<option value="${v.id}">${v.nombre}</option>`).join('');
+  const propts=DB.productos.map(p=>`<option value="${p.id}|${p.precio_usd}">${p.id} - ${p.nombre} ($${p.precio_usd})</option>`).join('');
+  openModal('📋 Nueva Orden de Compra',
+    `<div class="mg2"><div class="mf"><label>Proveedor</label><select class="mi2" id="fOv"><option value="">Seleccionar...</option>${opts}</select></div><div class="mf"><label>Fecha</label><input class="mi2" id="fOfe" type="date" value="${new Date().toISOString().slice(0,10)}"></div></div>
+    <div class="mf"><label>Producto</label><select class="mi2" id="fOprod" onchange="calcOrdenPrecio()">${propts}</select></div>
+    <div class="mg2"><div class="mf"><label>Cantidad</label><input class="mi2" id="fOqty" type="number" value="1" min="1" oninput="calcOrdenTotal()"></div><div class="mf"><label>Precio USD (unit.)</label><input class="mi2" id="fOprc" type="number" step="0.01" oninput="calcOrdenTotal()"></div></div>
+    <div class="calc-box"><div class="calc-row"><span>Total USD:</span><span id="fOtot">$0.00</span></div><div class="calc-row"><span>Total VES (BCV ${TAX.BCV_USD}):</span><span id="fOtotves">Bs. 0.00</span></div></div>`,
+    ()=>{
+      const v=document.getElementById('fOv').value;const fe=document.getElementById('fOfe').value;
+      const prod=document.getElementById('fOprod').value.split('|')[0];
+      const qty=+document.getElementById('fOqty').value;
+      const prc=+document.getElementById('fOprc').value;
+      if(!v||!prod||qty<1||prc<=0){toast('⚠ Completa todos los campos');return;}
+      DB.ordenes.push({id:'OC-'+new Date().getFullYear()+'-'+String(DB.ordenes.length+1).padStart(3,'0'),proveedor:v,fecha:fe,total_usd:qty*prc,estado:'Pendiente',items:[{prod,qty,precio:prc}]});
+      closeModal();renderMod('administrativo');toast('Orden de compra creada');
+    });
+  setTimeout(()=>{const s=document.getElementById('fOprod');if(s)calcOrdenPrecio();},100);
+}
+function calcOrdenPrecio(){const s=document.getElementById('fOprod');if(!s)return;const prc=s.value.split('|')[1];const pi=document.getElementById('fOprc');if(pi&&prc)pi.value=prc;calcOrdenTotal();}
+function calcOrdenTotal(){const qty=+(document.getElementById('fOqty')?.value||0);const prc=+(document.getElementById('fOprc')?.value||0);const tot=qty*prc;const te=document.getElementById('fOtot');const tv=document.getElementById('fOtotves');if(te)te.textContent='$'+fmt(tot);if(tv)tv.textContent='Bs. '+fmt(tot*TAX.BCV_USD);}
+function aprobarOrden(i){if(DB.ordenes[i].estado==='Aprobada'){toast('Ya está aprobada');return;}DB.ordenes[i].estado='Aprobada';renderMod('administrativo');toast('Orden aprobada');}
+function delOrden(i){if(confirm('¿Eliminar orden?')){DB.ordenes.splice(i,1);renderMod('administrativo');toast('Orden eliminada');}}
+
+/* ═══════════════════════════════════════
+   CONTABILIDAD
+═══════════════════════════════════════ */
+let contTab='Libro Diario';
+function renderContab(p,tab){
+  tab=tab||contTab;contTab=tab;
+  p.innerHTML=modHeader('📒','Contabilidad','Libro Diario · Plan de Cuentas · Balance · Conciliación BCV','#ce93d8')+
+    subTabs(['Libro Diario','Plan de Cuentas','Balance Comprobación','Tasa BCV'],'Libro Diario','changeContTab')+
+    `<div id="contContent"></div>`;
+  const c=document.getElementById('contContent');
+  if(tab==='Libro Diario')renderLibroDiario(c);
+  else if(tab==='Plan de Cuentas')renderCuentas(c);
+  else if(tab==='Balance Comprobación')renderBalance(c);
+  else renderBCV(c);
+}
+function changeContTab(t,el){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');contTab=t;const c=document.getElementById('contContent');if(t==='Libro Diario')renderLibroDiario(c);else if(t==='Plan de Cuentas')renderCuentas(c);else if(t==='Balance Comprobación')renderBalance(c);else renderBCV(c);}
+function renderLibroDiario(c){
+  const totD=DB.asientos.reduce((a,x)=>a+x.debe,0);
+  const totH=DB.asientos.reduce((a,x)=>a+x.haber,0);
+  c.innerHTML=
+    `<div class="krow">
+      <div class="kc" style="--mc:#ce93d8"><div class="ki">📒</div><div class="kv">${DB.asientos.length}</div><div class="kl">Asientos registrados</div></div>
+      <div class="kc" style="--mc:#ce93d8"><div class="ki">⬆️</div><div class="kv">$${fmt(totD)}</div><div class="kl">Total Debe</div></div>
+      <div class="kc" style="--mc:#ce93d8"><div class="ki">⬇️</div><div class="kv">$${fmt(totH)}</div><div class="kl">Total Haber</div></div>
+      <div class="kc" style="--mc:${Math.abs(totD-totH)<0.01?'#00e676':'#ff5252'}"><div class="ki">${Math.abs(totD-totH)<0.01?'✅':'⚠️'}</div><div class="kv">${Math.abs(totD-totH)<0.01?'OK':'$'+fmt(Math.abs(totD-totH))}</div><div class="kl">Diferencia</div></div>
+    </div>
+    <div class="abar"><button class="abtn" onclick="newAsiento()">➕ Nuevo Asiento</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">LIBRO DIARIO</span></div>
+    <div class="tscroll"><table><thead><tr><th>N° Asiento</th><th>Fecha</th><th>Cuenta</th><th>Descripción</th><th>Debe USD</th><th>Haber USD</th><th>Tipo</th></tr></thead>
+    <tbody>${DB.asientos.map((a,i)=>`<tr>
+      <td><span class="bdg bp">${a.id}</span></td><td>${fmtD(a.fecha)}</td>
+      <td>${a.cuenta}</td><td>${a.descripcion}</td>
+      <td class="num" style="color:#a0cfff">$${fmt(a.debe)}</td>
+      <td class="num" style="color:#f0c0ff">$${fmt(a.haber)}</td>
+      <td><span class="bdg ${a.tipo==='Ingreso'?'bg':a.tipo==='Egreso'?'br':'bb'}">${a.tipo}</span></td>
+    </tr>`).join('')||`<tr><td colspan="7" class="empty">Sin asientos contables. Crea el primero.</td></tr>`}
+    </tbody></table></div></div>
+    <div class="cbar"><span class="cbt">NORMATIVA VE</span><div class="cbc"><span class="cc">SENIAT</span><span class="cc">PCGE VE</span><span class="cc">NIIF</span><span class="cc">IVA 16%</span></div></div>`;
+}
+function newAsiento(){
+  const copts=DB.cuentas.map(c=>`<option value="${c.cod}">${c.cod} — ${c.nombre}</option>`).join('');
+  const tipos=['Activo','Pasivo','Patrimonio','Ingreso','Egreso'];
+  openModal('📒 Nuevo Asiento Contable',
+    `<div class="mg2"><div class="mf"><label>Fecha</label><input class="mi2" id="fAfe" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="mf"><label>Tipo</label><select class="mi2" id="fAtp">${tipos.map(t=>`<option>${t}</option>`).join('')}</select></div></div>
+    <div class="mf"><label>Cuenta Contable</label><select class="mi2" id="fAct">${copts}</select></div>
+    <div class="mf"><label>Descripción</label><input class="mi2" id="fAdes" placeholder="Descripción del asiento"></div>
+    <div class="mg2"><div class="mf"><label>Debe (USD)</label><input class="mi2" id="fAde" type="number" step="0.01" value="0" oninput="validAsiento()"></div><div class="mf"><label>Haber (USD)</label><input class="mi2" id="fAha" type="number" step="0.01" value="0" oninput="validAsiento()"></div></div>
+    <div class="calc-box" id="asientoCalc"><div class="calc-row"><span>Balance Debe = Haber:</span><span id="asBalMsg" style="color:#ffab40">$0.00</span></div></div>`,
+    ()=>{
+      const de=+document.getElementById('fAde').value;
+      const ha=+document.getElementById('fAha').value;
+      if(de===0&&ha===0){toast('⚠ Ingresa monto en Debe o Haber');return;}
+      const cEl=document.getElementById('fAct');
+      const a={id:'AS-'+String(DB.asientoNumero++).padStart(8,'0'),fecha:document.getElementById('fAfe').value,cuenta:cEl.options[cEl.selectedIndex].text,descripcion:document.getElementById('fAdes').value||'Asiento contable',debe:de,haber:ha,tipo:document.getElementById('fAtp').value};
+      DB.asientos.push(a);closeModal();renderMod('contabilidad');toast('Asiento registrado');logAudit('Asiento: '+a.id,'contabilidad');
+    });
+}
+function validAsiento(){
+  const de=+document.getElementById('fAde').value;
+  const ha=+document.getElementById('fAha').value;
+  const el=document.getElementById('asBalMsg');
+  if(!el)return;
+  const dif=Math.abs(de-ha);
+  el.textContent=dif<0.01?'✅ Cuadrado':'⚠ Diferencia: $'+fmt(dif);
+  el.style.color=dif<0.01?'#00e676':'#ff5252';
+}
+function renderCuentas(c){
+  c.innerHTML=
+    `<div class="abar"><button class="abtn" onclick="newCuenta()">➕ Nueva Cuenta</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">PLAN DE CUENTAS — PCGE VENEZUELA</span></div>
+    <div class="tscroll"><table><thead><tr><th>Código</th><th>Nombre</th><th>Tipo</th><th>Naturaleza</th><th>Acciones</th></tr></thead>
+    <tbody>${DB.cuentas.map((c,i)=>`<tr>
+      <td><span class="bdg bp">${c.cod}</span></td><td>${c.nombre}</td>
+      <td><span class="bdg ${c.tipo==='Activo'?'bg':c.tipo==='Pasivo'?'br':c.tipo==='Ingreso'?'bb':'by'}">${c.tipo}</span></td>
+      <td>${c.naturaleza}</td>
+      <td class="acts"><button class="abtn red" style="padding:3px 8px;font-size:10px" onclick="delCuenta(${i})">🗑️</button></td>
+    </tr>`).join('')}</tbody></table></div></div>`;
+}
+function newCuenta(){
+  openModal('📋 Nueva Cuenta Contable',
+    `<div class="mg2"><div class="mf"><label>Código</label><input class="mi2" id="fCcod" placeholder="1.1.3"></div><div class="mf"><label>Nombre de la Cuenta</label><input class="mi2" id="fCnom" placeholder="Efectivo en Caja"></div></div>
+    <div class="mg2"><div class="mf"><label>Tipo</label><select class="mi2" id="fCtp"><option>Activo</option><option>Pasivo</option><option>Patrimonio</option><option>Ingreso</option><option>Egreso</option></select></div><div class="mf"><label>Naturaleza</label><select class="mi2" id="fCna"><option>Deudora</option><option>Acreedora</option></select></div></div>`,
+    ()=>{const c={cod:document.getElementById('fCcod').value,nombre:document.getElementById('fCnom').value,tipo:document.getElementById('fCtp').value,naturaleza:document.getElementById('fCna').value};if(!c.cod||!c.nombre){toast('⚠ Completa código y nombre');return;}DB.cuentas.push(c);closeModal();renderMod('contabilidad');toast('Cuenta creada');});
+}
+function delCuenta(i){if(confirm('¿Eliminar cuenta?')){DB.cuentas.splice(i,1);renderMod('contabilidad');toast('Cuenta eliminada');}}
+function renderBalance(c){
+  const agrup={};
+  DB.cuentas.forEach(ct=>{
+    const totAsientos=DB.asientos.filter(a=>a.cuenta.startsWith(ct.cod)).reduce((s,a)=>({debe:s.debe+a.debe,haber:s.haber+a.haber}),{debe:0,haber:0});
+    if(!agrup[ct.tipo])agrup[ct.tipo]={debe:0,haber:0,rows:[]};
+    agrup[ct.tipo].debe+=totAsientos.debe;
+    agrup[ct.tipo].haber+=totAsientos.haber;
+    agrup[ct.tipo].rows.push({...ct,...totAsientos});
+  });
+  const totD=Object.values(agrup).reduce((s,g)=>s+g.debe,0);
+  const totH=Object.values(agrup).reduce((s,g)=>s+g.haber,0);
+  c.innerHTML=`<div class="tbox"><div class="thdr"><span class="tttl">BALANCE DE COMPROBACIÓN</span></div>
+  <div class="tscroll"><table><thead><tr><th>Código</th><th>Cuenta</th><th>Tipo</th><th>Debe USD</th><th>Haber USD</th><th>Saldo</th></tr></thead>
+  <tbody>${DB.cuentas.map(ct=>{const d=DB.asientos.filter(a=>a.cuenta.startsWith(ct.cod)).reduce((s,a)=>s+a.debe,0);const h=DB.asientos.filter(a=>a.cuenta.startsWith(ct.cod)).reduce((s,a)=>s+a.haber,0);return`<tr><td>${ct.cod}</td><td>${ct.nombre}</td><td>${ct.tipo}</td><td class="num">$${fmt(d)}</td><td class="num">$${fmt(h)}</td><td class="num" style="color:${d>=h?'#a0d8ff':'#f0a0c0'}">$${fmt(Math.abs(d-h))}</td></tr>`;}).join('')}
+  <tr style="border-top:1px solid rgba(255,255,255,.1);font-weight:700"><td colspan="3"><b>TOTALES</b></td><td class="num" style="color:#ce93d8">$${fmt(totD)}</td><td class="num" style="color:#ce93d8">$${fmt(totH)}</td><td class="num" style="color:${Math.abs(totD-totH)<0.01?'#00e676':'#ff5252'}">${Math.abs(totD-totH)<0.01?'✅ CUADRADO':'$'+fmt(Math.abs(totD-totH))}</td></tr>
+  </tbody></table></div></div>`;
+}
+function renderBCV(c){
+  c.innerHTML=`<div class="krow">
+    <div class="kc" style="--mc:#ce93d8"><div class="ki">💱</div><div class="kv">Bs.${TAX.BCV_USD}</div><div class="kl">Tasa BCV USD hoy</div></div>
+    <div class="kc" style="--mc:#ce93d8"><div class="ki">📅</div><div class="kv">${new Date().toLocaleDateString('es-VE')}</div><div class="kl">Fecha de cotización</div></div>
+  </div>
+  <div class="abar"><button class="abtn" onclick="actualizarBCV()">🔄 Actualizar Tasa BCV</button></div>
+  <div class="tbox"><div class="thdr"><span class="tttl">HISTORIAL DE TASAS BCV</span></div>
+  <table><thead><tr><th>Fecha</th><th>Tasa USD/VES</th><th>Variación</th></tr></thead>
+  <tbody>
+    <tr><td>${new Date().toLocaleDateString('es-VE')}</td><td class="num">Bs.${TAX.BCV_USD}</td><td><span class="bdg bg">Vigente</span></td></tr>
+    <tr><td>08/04/2025</td><td class="num">Bs.36.20</td><td><span class="bdg by">+0.3</span></td></tr>
+    <tr><td>07/04/2025</td><td class="num">Bs.35.90</td><td><span class="bdg by">+0.3</span></td></tr>
+  </tbody></table></div>`;
+}
+function actualizarBCV(){const nv=prompt('Ingresa la tasa BCV actual (USD):',TAX.BCV_USD);if(nv&&!isNaN(nv)){TAX.BCV_USD=parseFloat(nv);renderMod('contabilidad');toast('Tasa BCV actualizada: Bs.'+TAX.BCV_USD);}}
+
+/* ═══════════════════════════════════════
+   GESTIÓN HUMANA
+═══════════════════════════════════════ */
+let ghTab='Empleados';
+function renderGH(p,tab){
+  tab=tab||ghTab;ghTab=tab;
+  p.innerHTML=modHeader('👥','Gestión Humana','Empleados · Nómina · IVSS · LPH · FAOV · Prestaciones · LOTTT','#00e676')+
+    subTabs(['Empleados','Calcular Nómina','Historial Nómina','Prestaciones'],'Empleados','changeGHTab')+
+    `<div id="ghContent"></div>`;
+  const c=document.getElementById('ghContent');
+  if(tab==='Empleados')renderEmpleados(c);
+  else if(tab==='Calcular Nómina')renderCalcNomina(c);
+  else if(tab==='Historial Nómina')renderHistNomina(c);
+  else renderPrestaciones(c);
+}
+function changeGHTab(t,el){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');ghTab=t;const c=document.getElementById('ghContent');if(t==='Empleados')renderEmpleados(c);else if(t==='Calcular Nómina')renderCalcNomina(c);else if(t==='Historial Nómina')renderHistNomina(c);else renderPrestaciones(c);}
+function renderEmpleados(c){
+  const activos=DB.empleados.filter(e=>e.status==='Activo').length;
+  const totalNom=DB.empleados.reduce((s,e)=>s+e.salario_usd,0);
+  c.innerHTML=
+    `<div class="krow">
+      <div class="kc" style="--mc:#00e676"><div class="ki">👥</div><div class="kv">${activos}</div><div class="kl">Empleados activos</div></div>
+      <div class="kc" style="--mc:#00e676"><div class="ki">💵</div><div class="kv">$${fmt(totalNom)}</div><div class="kl">Masa salarial USD/mes</div></div>
+      <div class="kc" style="--mc:#00e676"><div class="ki">💱</div><div class="kv">Bs.${fmt(totalNom*TAX.BCV_USD)}</div><div class="kl">Masa salarial VES/mes</div></div>
+      <div class="kc" style="--mc:#ffab40"><div class="ki">🏥</div><div class="kv">$${fmt(totalNom*TAX.IVSS_P)}</div><div class="kl">Aporte patronal IVSS/mes</div></div>
+    </div>
+    <div class="abar"><button class="abtn" onclick="newEmpleado()">➕ Nuevo Empleado</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">NÓMINA DE EMPLEADOS</span></div>
+    <div class="tscroll"><table><thead><tr><th>ID</th><th>CI</th><th>Nombre</th><th>Cargo</th><th>Dto</th><th>Salario USD</th><th>Salario VES</th><th>Ingreso</th><th>Status</th><th>Acciones</th></tr></thead>
+    <tbody>${DB.empleados.map((e,i)=>`<tr>
+      <td><span class="bdg bb">${e.id}</span></td><td>${e.ci}</td><td>${e.nombre}</td><td>${e.cargo}</td><td>${e.dpto}</td>
+      <td class="num">$${fmt(e.salario_usd)}</td><td class="num">Bs.${fmt(e.salario_usd*TAX.BCV_USD)}</td>
+      <td>${fmtD(e.fecha_ingreso)}</td>
+      <td><span class="bdg ${e.status==='Activo'?'bg':'br'}">${e.status}</span></td>
+      <td class="acts"><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="editEmpleado(${i})">✏️</button> <button class="abtn red" style="padding:3px 8px;font-size:10px" onclick="delEmpleado(${i})">🗑️</button></td>
+    </tr>`).join('')||`<tr><td colspan="10" class="empty">Sin empleados</td></tr>`}
+    </tbody></table></div></div>
+    <div class="cbar"><span class="cbt">NORMATIVA VE</span><div class="cbc"><span class="cc">LOTTT 2012</span><span class="cc">IVSS</span><span class="cc">LPH</span><span class="cc">FAOV</span><span class="cc">Cestatickets</span></div></div>`;
+}
+function newEmpleado(){
+  openModal('👤 Nuevo Empleado',
+    `<div class="mg2"><div class="mf"><label>Cédula de Identidad</label><input class="mi2" id="fEci" placeholder="V-12345678"></div><div class="mf"><label>Nombre Completo</label><input class="mi2" id="fEnom" placeholder="Apellido, Nombre"></div></div>
+    <div class="mg2"><div class="mf"><label>Cargo</label><input class="mi2" id="fEcargo" placeholder="Contador, Almacenista..."></div><div class="mf"><label>Departamento</label><input class="mi2" id="fEdpto" placeholder="Administración, Ventas..."></div></div>
+    <div class="mg2"><div class="mf"><label>Salario USD/mes</label><input class="mi2" id="fEsal" type="number" step="0.01" placeholder="0.00" oninput="calcSalarioVES()"></div><div class="mf"><label>Salario VES/mes (auto)</label><input class="mi2" id="fEsalves" type="number" step="0.01" placeholder="0.00"></div></div>
+    <div class="mg2"><div class="mf"><label>Fecha de Ingreso</label><input class="mi2" id="fEfin" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="mf"><label>Status</label><select class="mi2" id="fEst"><option>Activo</option><option>Inactivo</option></select></div></div>`,
+    ()=>{
+      const e={id:genId('E',DB.empleados),ci:document.getElementById('fEci').value,nombre:document.getElementById('fEnom').value,cargo:document.getElementById('fEcargo').value,dpto:document.getElementById('fEdpto').value,salario_usd:+document.getElementById('fEsal').value,fecha_ingreso:document.getElementById('fEfin').value,status:document.getElementById('fEst').value};
+      if(!e.ci||!e.nombre){toast('⚠ CI y nombre requeridos');return;}
+      DB.empleados.push(e);closeModal();renderMod('gh');toast('Empleado guardado');
+    });
+}
+function calcSalarioVES(){const s=+document.getElementById('fEsal').value;const v=document.getElementById('fEsalves');if(v)v.value=(s*TAX.BCV_USD).toFixed(2);}
+function editEmpleado(i){const e=DB.empleados[i];openModal('✏️ Editar Empleado',`<div class="mg2"><div class="mf"><label>CI</label><input class="mi2" id="fEci" value="${e.ci}"></div><div class="mf"><label>Nombre</label><input class="mi2" id="fEnom" value="${e.nombre}"></div></div><div class="mg2"><div class="mf"><label>Cargo</label><input class="mi2" id="fEcargo" value="${e.cargo}"></div><div class="mf"><label>Departamento</label><input class="mi2" id="fEdpto" value="${e.dpto}"></div></div><div class="mg2"><div class="mf"><label>Salario USD</label><input class="mi2" id="fEsal" type="number" step="0.01" value="${e.salario_usd}"></div><div class="mf"><label>Status</label><select class="mi2" id="fEst"><option ${e.status==='Activo'?'selected':''}>Activo</option><option ${e.status==='Inactivo'?'selected':''}>Inactivo</option></select></div></div>`,()=>{DB.empleados[i]={...DB.empleados[i],ci:document.getElementById('fEci').value,nombre:document.getElementById('fEnom').value,cargo:document.getElementById('fEcargo').value,dpto:document.getElementById('fEdpto').value,salario_usd:+document.getElementById('fEsal').value,status:document.getElementById('fEst').value};closeModal();renderMod('gh');toast('Empleado actualizado');});}
+function delEmpleado(i){if(confirm('¿Eliminar empleado?')){DB.empleados.splice(i,1);renderMod('gh');toast('Empleado eliminado');}}
+function renderCalcNomina(c){
+  const totalSal=DB.empleados.filter(e=>e.status==='Activo').reduce((s,e)=>s+e.salario_usd,0);
+  const ivssW=totalSal*TAX.IVSS_W;const ivssP=totalSal*TAX.IVSS_P;
+  const lphW=totalSal*TAX.LPH_W;const lphP=totalSal*TAX.LPH_P;
+  const faovW=totalSal*TAX.FAOV_W;const faovP=totalSal*TAX.FAOV_P;
+  const inces=totalSal*TAX.INCES_P;
+  const cesta=DB.empleados.filter(e=>e.status==='Activo').length*15;
+  const netoW=totalSal-ivssW-lphW-faovW;
+  const costoP=totalSal+ivssP+lphP+faovP+inces+cesta;
+  c.innerHTML=
+    `<div class="abar"><button class="abtn" onclick="procesarNomina()">⚡ Procesar Nómina del Mes</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+    <div class="calc-box" style="margin-top:0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.15em;margin-bottom:8px">DETALLE TRABAJADOR (DEDUCCIONES)</div>
+      <div class="calc-row"><span>Salario bruto total:</span><span>$${fmt(totalSal)}</span></div>
+      <div class="calc-row"><span>IVSS trabajador (4%):</span><span style="color:#ff5252">-$${fmt(ivssW)}</span></div>
+      <div class="calc-row"><span>LPH trabajador (0.5%):</span><span style="color:#ff5252">-$${fmt(lphW)}</span></div>
+      <div class="calc-row"><span>FAOV trabajador (1%):</span><span style="color:#ff5252">-$${fmt(faovW)}</span></div>
+      <div class="calc-row"><span>NETO A PAGAR:</span><span>$${fmt(netoW)}</span></div>
+    </div>
+    <div class="calc-box" style="margin-top:0">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.15em;margin-bottom:8px">COSTO TOTAL PATRONAL</div>
+      <div class="calc-row"><span>Salario bruto total:</span><span>$${fmt(totalSal)}</span></div>
+      <div class="calc-row"><span>IVSS patronal (9%):</span><span style="color:#ff5252">+$${fmt(ivssP)}</span></div>
+      <div class="calc-row"><span>LPH patronal (2%):</span><span style="color:#ff5252">+$${fmt(lphP)}</span></div>
+      <div class="calc-row"><span>FAOV patronal (2%):</span><span style="color:#ff5252">+$${fmt(faovP)}</span></div>
+      <div class="calc-row"><span>INCES patronal (2%):</span><span style="color:#ff5252">+$${fmt(inces)}</span></div>
+      <div class="calc-row"><span>Cestatickets ($15/emp):</span><span style="color:#ff5252">+$${fmt(cesta)}</span></div>
+      <div class="calc-row"><span>COSTO TOTAL EMPRESA:</span><span>$${fmt(costoP)}</span></div>
+    </div></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">DETALLE POR EMPLEADO</span></div>
+    <div class="tscroll"><table><thead><tr><th>Empleado</th><th>Cargo</th><th>Salario USD</th><th>IVSS (4%)</th><th>LPH (0.5%)</th><th>FAOV (1%)</th><th>Neto USD</th><th>Neto VES</th></tr></thead>
+    <tbody>${DB.empleados.filter(e=>e.status==='Activo').map(e=>{
+      const iw=e.salario_usd*TAX.IVSS_W;const lw=e.salario_usd*TAX.LPH_W;const fw=e.salario_usd*TAX.FAOV_W;
+      const neto=e.salario_usd-iw-lw-fw;
+      return`<tr><td>${e.nombre}</td><td>${e.cargo}</td><td class="num">$${fmt(e.salario_usd)}</td><td class="num" style="color:#ff5252">$${fmt(iw)}</td><td class="num" style="color:#ff5252">$${fmt(lw)}</td><td class="num" style="color:#ff5252">$${fmt(fw)}</td><td class="num" style="color:#00e676">$${fmt(neto)}</td><td class="num">Bs.${fmt(neto*TAX.BCV_USD)}</td></tr>`;
+    }).join('')}
+    </tbody></table></div></div>
+    <div class="cbar"><span class="cbt">NORMATIVA VE</span><div class="cbc"><span class="cc">LOTTT 2012</span><span class="cc">IVSS Reg.Gen.</span><span class="cc">LPH 0.5%/2%</span><span class="cc">FAOV 1%/2%</span><span class="cc">INCES 2%</span><span class="cc">Cestatickets</span></div></div>`;
+}
+function procesarNomina(){
+  const mes=new Date().toLocaleString('es-VE',{month:'long',year:'numeric'});
+  const total=DB.empleados.filter(e=>e.status==='Activo').reduce((s,e)=>s+e.salario_usd*(1-TAX.IVSS_W-TAX.LPH_W-TAX.FAOV_W),0);
+  DB.nominas.push({id:'NOM-'+Date.now(),periodo:mes,empleados:DB.empleados.filter(e=>e.status==='Activo').length,total_neto:total,fecha:new Date().toISOString().slice(0,10),estado:'Procesada'});
+  toast(`✅ Nómina de ${mes} procesada: $${fmt(total)}`);
+  logAudit('Nómina procesada: '+mes,'gh');
+}
+function renderHistNomina(c){
+  c.innerHTML=`<div class="tbox"><div class="thdr"><span class="tttl">HISTORIAL DE NÓMINAS</span></div>
+  <div class="tscroll"><table><thead><tr><th>ID</th><th>Período</th><th>Empleados</th><th>Total Neto USD</th><th>Total VES</th><th>Fecha Proceso</th><th>Estado</th></tr></thead>
+  <tbody>${DB.nominas.map(n=>`<tr><td><span class="bdg bb">${n.id.slice(0,12)}</span></td><td>${n.periodo}</td><td>${n.empleados}</td><td class="num">$${fmt(n.total_neto)}</td><td class="num">Bs.${fmt(n.total_neto*TAX.BCV_USD)}</td><td>${fmtD(n.fecha)}</td><td><span class="bdg bg">${n.estado}</span></td></tr>`).join('')||`<tr><td colspan="7" class="empty">Sin nóminas procesadas. Ve a "Calcular Nómina" para procesar.</td></tr>`}
+  </tbody></table></div></div>`;
+}
+function renderPrestaciones(c){
+  c.innerHTML=`<div class="tbox"><div class="thdr"><span class="tttl">PRESTACIONES SOCIALES — CÁLCULO ANUAL (LOTTT)</span></div>
+  <div class="tscroll"><table><thead><tr><th>Empleado</th><th>Antigüedad</th><th>Salario USD</th><th>Días Prestac.</th><th>Prestaciones USD</th><th>Vacaciones USD</th><th>Utilidades USD</th><th>Total USD</th></tr></thead>
+  <tbody>${DB.empleados.filter(e=>e.status==='Activo').map(e=>{
+    const ingreso=new Date(e.fecha_ingreso);const hoy=new Date();
+    const anios=Math.max(0,(hoy-ingreso)/(1000*60*60*24*365));
+    const diaSal=e.salario_usd/30;
+    const diasPrest=Math.min(Math.floor(5+Math.max(0,anios-1)*2),45);
+    const prest=diasPrest*diaSal;
+    const diasVac=15+Math.floor(Math.max(0,anios-1));
+    const vac=diasVac*diaSal;
+    const util=15*diaSal;
+    return`<tr><td>${e.nombre}</td><td>${anios.toFixed(1)} años</td><td class="num">$${fmt(e.salario_usd)}</td><td class="num">${diasPrest}</td><td class="num">$${fmt(prest)}</td><td class="num">$${fmt(vac)}</td><td class="num">$${fmt(util)}</td><td class="num" style="color:#00e676">$${fmt(prest+vac+util)}</td></tr>`;
+  }).join('')}
+  </tbody></table></div></div>
+  <div class="cbar"><span class="cbt">BASE LEGAL</span><div class="cbc"><span class="cc">Art. 141-147 LOTTT</span><span class="cc">5 días/año (+ 2 c/año adic.)</span><span class="cc">Vacaciones 15+1/año</span><span class="cc">Utilidades mín. 15 días</span></div></div>`;
+}
+
+/* ═══════════════════════════════════════
+   G-FACTURA
+═══════════════════════════════════════ */
+let facTab='Facturas';
+function renderFactura(p,tab){
+  tab=tab||facTab;facTab=tab;
+  p.innerHTML=modHeader('🧾','G-Factura','Facturación Electrónica · SENIAT · IVA 16% · IGTF 3% · Máquinas Fiscales','#ffd740')+
+    subTabs(['Facturas','Clientes','Libro de Ventas'],'Facturas','changeFacTab')+
+    `<div id="facContent"></div>`;
+  if(tab==='Facturas')renderListaFacturas(document.getElementById('facContent'));
+  else if(tab==='Clientes')renderClientes(document.getElementById('facContent'));
+  else renderLibroVentas(document.getElementById('facContent'));
+}
+function changeFacTab(t,el){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');facTab=t;const c=document.getElementById('facContent');if(t==='Facturas')renderListaFacturas(c);else if(t==='Clientes')renderClientes(c);else renderLibroVentas(c);}
+function renderListaFacturas(c){
+  const totBase=DB.facturas.reduce((s,f)=>s+f.base,0);
+  const totIva=DB.facturas.reduce((s,f)=>s+f.iva,0);
+  const totTotal=DB.facturas.reduce((s,f)=>s+f.total,0);
+  c.innerHTML=
+    `<div class="krow">
+      <div class="kc" style="--mc:#ffd740"><div class="ki">🧾</div><div class="kv">${DB.facturas.length}</div><div class="kl">Facturas emitidas</div></div>
+      <div class="kc" style="--mc:#ffd740"><div class="ki">💰</div><div class="kv">$${fmt(totBase)}</div><div class="kl">Base imponible</div></div>
+      <div class="kc" style="--mc:#ffd740"><div class="ki">📊</div><div class="kv">$${fmt(totIva)}</div><div class="kl">IVA generado (16%)</div></div>
+      <div class="kc" style="--mc:#ffd740"><div class="ki">🏦</div><div class="kv">$${fmt(totTotal)}</div><div class="kl">Total facturado</div></div>
+    </div>
+    <div class="abar"><button class="abtn" onclick="newFactura()">➕ Nueva Factura</button><button class="abtn sec" onclick="changeFacTab('Libro de Ventas',document.querySelector('.stab:last-child'))">📋 Libro IVA</button></div>
+    <div class="tbox"><div class="thdr"><span class="tttl">FACTURAS EMITIDAS</span></div>
+    <div class="tscroll"><table><thead><tr><th>Número</th><th>Fecha</th><th>Cliente (RIF)</th><th>Concepto</th><th>Base Imp.</th><th>IVA 16%</th><th>IGTF 3%</th><th>Total</th><th>Estado</th><th>Acc.</th></tr></thead>
+    <tbody>${DB.facturas.map((f,i)=>{const cl=DB.clientes.find(c=>c.id===f.cliente);return`<tr>
+      <td><span class="bdg by">${f.id}</span></td><td>${fmtD(f.fecha)}</td>
+      <td>${cl?cl.nombre+' ('+cl.rif+')':f.cliente}</td><td>${f.concepto}</td>
+      <td class="num">$${fmt(f.base)}</td><td class="num">$${fmt(f.iva)}</td>
+      <td class="num">$${fmt(f.igtf)}</td><td class="num" style="color:#ffd740">$${fmt(f.total)}</td>
+      <td><span class="bdg ${f.estado==='Pagada'?'bg':f.estado==='Anulada'?'br':'by'}">${f.estado}</span></td>
+      <td class="acts"><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="anularFactura(${i})">🚫</button></td>
+    </tr>`;}).join('')||`<tr><td colspan="10" class="empty">Sin facturas. Crea la primera.</td></tr>`}
+    </tbody></table></div></div>
+    <div class="cbar"><span class="cbt">NORMATIVA VE</span><div class="cbc"><span class="cc">SENIAT MF</span><span class="cc">IVA 16%</span><span class="cc">IGTF 3%</span><span class="cc">Fact. Exenta</span><span class="cc">BCV</span></div></div>`;
+}
+function newFactura(){
+  const copts=DB.clientes.map(c=>`<option value="${c.id}">${c.nombre} (${c.rif})</option>`).join('');
+  openModal('🧾 Nueva Factura',
+    `<div class="mg2"><div class="mf"><label>Cliente</label><select class="mi2" id="fFcl"><option value="">Seleccionar cliente...</option>${copts}</select></div><div class="mf"><label>Fecha</label><input class="mi2" id="fFfe" type="date" value="${new Date().toISOString().slice(0,10)}"></div></div>
+    <div class="mf"><label>Concepto / Descripción</label><input class="mi2" id="fFcon" placeholder="Descripción de la venta o servicio"></div>
+    <div class="mg2"><div class="mf"><label>Tipo</label><select class="mi2" id="fFtp" onchange="calcFactura()"><option value="gravada">Gravada (IVA 16%)</option><option value="exenta">Exenta de IVA</option><option value="exportacion">Exportación</option></select></div><div class="mf"><label>¿Aplica IGTF 3%?</label><select class="mi2" id="fFigtf" onchange="calcFactura()"><option value="no">No aplica</option><option value="si">Sí aplica (divisa/criptomoneda)</option></select></div></div>
+    <div class="mf"><label>Base Imponible (USD)</label><input class="mi2" id="fFbase" type="number" step="0.01" placeholder="0.00" oninput="calcFactura()"></div>
+    <div class="calc-box" id="facCalc">
+      <div class="calc-row"><span>Base imponible:</span><span id="fcBase">$0.00</span></div>
+      <div class="calc-row"><span>IVA (16%):</span><span id="fcIva">$0.00</span></div>
+      <div class="calc-row"><span>IGTF (3%):</span><span id="fcIgtf">$0.00</span></div>
+      <div class="calc-row"><span>TOTAL A COBRAR:</span><span id="fcTotal">$0.00</span></div>
+    </div>`,
+    ()=>{
+      const cl=document.getElementById('fFcl').value;
+      const base=+document.getElementById('fFbase').value;
+      if(!cl){toast('⚠ Selecciona el cliente');return;}
+      if(base<=0){toast('⚠ Ingresa la base imponible');return;}
+      const tipo=document.getElementById('fFtp').value;
+      const iva=tipo==='gravada'?base*TAX.IVA:0;
+      const igtf=document.getElementById('fFigtf').value==='si'?(base+iva)*TAX.IGTF:0;
+      const total=base+iva+igtf;
+      const num='F-'+String(DB.facturaNum++).padStart(8,'0');
+      DB.facturas.push({id:num,cliente:cl,fecha:document.getElementById('fFfe').value,base,iva,igtf,total,estado:'Por cobrar',concepto:document.getElementById('fFcon').value||'Venta de bienes/servicios',tipo});
+      closeModal();renderMod('gfactura');toast(`Factura ${num} emitida: $${fmt(total)}`);
+      logAudit('Factura emitida: '+num,'gfactura');
+    });
+}
+function calcFactura(){
+  const base=+document.getElementById('fFbase')?.value||0;
+  const tipo=document.getElementById('fFtp')?.value;
+  const igtfSi=document.getElementById('fFigtf')?.value==='si';
+  const iva=tipo==='gravada'?base*TAX.IVA:0;
+  const igtf=igtfSi?(base+iva)*TAX.IGTF:0;
+  const total=base+iva+igtf;
+  ['fcBase','fcIva','fcIgtf','fcTotal'].forEach((id,i)=>{
+    const e=document.getElementById(id);if(!e)return;
+    e.textContent='$'+fmt([base,iva,igtf,total][i]);
+  });
+}
+function anularFactura(i){if(confirm('¿Anular factura '+DB.facturas[i].id+'?')){DB.facturas[i].estado='Anulada';renderMod('gfactura');toast('Factura anulada');logAudit('Factura anulada: '+DB.facturas[i].id,'gfactura');}}
+function renderClientes(c){
+  c.innerHTML=`<div class="abar"><button class="abtn" onclick="newCliente()">➕ Nuevo Cliente</button></div>
+  <div class="tbox"><div class="thdr"><span class="tttl">CLIENTES REGISTRADOS</span></div>
+  <div class="tscroll"><table><thead><tr><th>ID</th><th>Nombre / Razón Social</th><th>RIF</th><th>Dirección</th><th>Teléfono</th><th>Email</th><th>Facturas</th><th>Acc.</th></tr></thead>
+  <tbody>${DB.clientes.map((cl,i)=>{const nf=DB.facturas.filter(f=>f.cliente===cl.id&&f.estado!=='Anulada').length;return`<tr>
+    <td><span class="bdg bb">${cl.id}</span></td><td>${cl.nombre}</td><td>${cl.rif}</td><td>${cl.direccion}</td><td>${cl.telefono}</td><td>${cl.email}</td>
+    <td><span class="bdg by">${nf}</span></td>
+    <td class="acts"><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="editCliente(${i})">✏️</button> <button class="abtn red" style="padding:3px 8px;font-size:10px" onclick="delCliente(${i})">🗑️</button></td>
+  </tr>`;}).join('')||`<tr><td colspan="8" class="empty">Sin clientes</td></tr>`}
+  </tbody></table></div></div>`;
+}
+function newCliente(){openModal('👤 Nuevo Cliente',`<div class="mg2"><div class="mf"><label>Nombre / Razón Social</label><input class="mi2" id="fClnom" placeholder="Empresa XYZ, C.A."></div><div class="mf"><label>RIF</label><input class="mi2" id="fClrif" placeholder="J-30001234-5"></div></div><div class="mf"><label>Dirección</label><input class="mi2" id="fCldir" placeholder="Av. Principal, Caracas"></div><div class="mg2"><div class="mf"><label>Teléfono</label><input class="mi2" id="fCltel" placeholder="0212-555-0000"></div><div class="mf"><label>Email</label><input class="mi2" id="fClema" placeholder="contacto@empresa.com"></div></div>`,()=>{const c={id:genId('C',DB.clientes),nombre:document.getElementById('fClnom').value,rif:document.getElementById('fClrif').value,direccion:document.getElementById('fCldir').value,telefono:document.getElementById('fCltel').value,email:document.getElementById('fClema').value};if(!c.nombre||!c.rif){toast('⚠ Nombre y RIF requeridos');return;}DB.clientes.push(c);closeModal();renderMod('gfactura');toast('Cliente guardado');});}
+function editCliente(i){const cl=DB.clientes[i];openModal('✏️ Editar Cliente',`<div class="mg2"><div class="mf"><label>Nombre</label><input class="mi2" id="fClnom" value="${cl.nombre}"></div><div class="mf"><label>RIF</label><input class="mi2" id="fClrif" value="${cl.rif}"></div></div><div class="mf"><label>Dirección</label><input class="mi2" id="fCldir" value="${cl.direccion}"></div><div class="mg2"><div class="mf"><label>Teléfono</label><input class="mi2" id="fCltel" value="${cl.telefono}"></div><div class="mf"><label>Email</label><input class="mi2" id="fClema" value="${cl.email}"></div></div>`,()=>{DB.clientes[i]={...DB.clientes[i],nombre:document.getElementById('fClnom').value,rif:document.getElementById('fClrif').value,direccion:document.getElementById('fCldir').value,telefono:document.getElementById('fCltel').value,email:document.getElementById('fClema').value};closeModal();renderMod('gfactura');toast('Cliente actualizado');});}
+function delCliente(i){if(confirm('¿Eliminar cliente?')){DB.clientes.splice(i,1);renderMod('gfactura');toast('Cliente eliminado');}}
+function renderLibroVentas(c){
+  const activas=DB.facturas.filter(f=>f.estado!=='Anulada');
+  const totBase=activas.reduce((s,f)=>s+f.base,0);
+  const totIva=activas.reduce((s,f)=>s+f.iva,0);
+  const totIgtf=activas.reduce((s,f)=>s+f.igtf,0);
+  const totTotal=activas.reduce((s,f)=>s+f.total,0);
+  c.innerHTML=`<div class="krow">
+    <div class="kc" style="--mc:#ffd740"><div class="ki">📊</div><div class="kv">$${fmt(totBase)}</div><div class="kl">Total base imponible</div></div>
+    <div class="kc" style="--mc:#ffd740"><div class="ki">💸</div><div class="kv">$${fmt(totIva)}</div><div class="kl">IVA débito fiscal</div></div>
+    <div class="kc" style="--mc:#ffd740"><div class="ki">🏦</div><div class="kv">$${fmt(totIgtf)}</div><div class="kl">IGTF generado</div></div>
+    <div class="kc" style="--mc:#ffd740"><div class="ki">💰</div><div class="kv">$${fmt(totTotal)}</div><div class="kl">Total cobrado</div></div>
+  </div>
+  <div class="tbox"><div class="thdr"><span class="tttl">LIBRO DE VENTAS — REPORTE IVA</span></div>
+  <div class="tscroll"><table><thead><tr><th>N° Factura</th><th>Fecha</th><th>Cliente</th><th>RIF</th><th>Base Imp.</th><th>IVA 16%</th><th>Exenta</th><th>IGTF</th><th>Total</th></tr></thead>
+  <tbody>${activas.map(f=>{const cl=DB.clientes.find(c=>c.id===f.cliente);return`<tr>
+    <td><span class="bdg by">${f.id}</span></td><td>${fmtD(f.fecha)}</td>
+    <td>${cl?cl.nombre:'—'}</td><td>${cl?cl.rif:'—'}</td>
+    <td class="num">$${fmt(f.base)}</td><td class="num">$${fmt(f.iva)}</td>
+    <td class="num">$${f.tipo==='exenta'?fmt(f.base):'0.00'}</td>
+    <td class="num">$${fmt(f.igtf)}</td><td class="num" style="color:#ffd740">$${fmt(f.total)}</td>
+  </tr>`;}).join('')||`<tr><td colspan="9" class="empty">Sin facturas emitidas</td></tr>`}
+  <tr style="border-top:1px solid rgba(255,255,255,.1);font-weight:700"><td colspan="4"><b>TOTALES</b></td><td class="num" style="color:#ffd740">$${fmt(totBase)}</td><td class="num" style="color:#ffd740">$${fmt(totIva)}</td><td class="num">$0.00</td><td class="num">$${fmt(totIgtf)}</td><td class="num" style="color:#ffd740">$${fmt(totTotal)}</td></tr>
+  </tbody></table></div></div>
+  <div class="cbar"><span class="cbt">SENIAT</span><div class="cbc"><span class="cc">Art. 75 RLIVA</span><span class="cc">Libro Ventas Obligatorio</span><span class="cc">Retención IVA 75%/100%</span></div></div>`;
+}
+
+/* ═══════════════════════════════════════
+   IVA Y RENTA
+═══════════════════════════════════════ */
+let ivaTab='Resumen Tributario';
+function renderIVA(p){
+  p.innerHTML=modHeader('📑','IVA y Renta','Libros Tributarios · Declaraciones · SENIAT · ISLR · IGTF','#ffab40')+
+    subTabs(['Resumen Tributario','Libro de Compras','Retenciones IVA'],'Resumen Tributario','changeIvaTab')+
+    `<div id="ivaContent"></div>`;
+  renderResumenTributario(document.getElementById('ivaContent'));
+}
+function changeIvaTab(t,el){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');const c=document.getElementById('ivaContent');if(t==='Resumen Tributario')renderResumenTributario(c);else if(t==='Libro de Compras')renderLibroCompras(c);else renderRetenciones(c);}
+function renderResumenTributario(c){
+  const factActivas=DB.facturas.filter(f=>f.estado!=='Anulada');
+  const debFisc=factActivas.reduce((s,f)=>s+f.iva,0);
+  const credFisc=DB.ordenes.reduce((s,o)=>s+(o.total_usd*TAX.IVA),0);
+  const ivaPagar=Math.max(0,debFisc-credFisc);
+  const igtf=factActivas.reduce((s,f)=>s+f.igtf,0);
+  c.innerHTML=`<div class="krow">
+    <div class="kc" style="--mc:#ffab40"><div class="ki">📊</div><div class="kv">$${fmt(debFisc)}</div><div class="kl">IVA débito fiscal (ventas)</div></div>
+    <div class="kc" style="--mc:#ffab40"><div class="ki">📉</div><div class="kv">$${fmt(credFisc)}</div><div class="kl">IVA crédito fiscal (compras)</div></div>
+    <div class="kc" style="--mc:${ivaPagar>0?'#ff5252':'#00e676'}"><div class="ki">${ivaPagar>0?'💸':'✅'}</div><div class="kv">$${fmt(ivaPagar)}</div><div class="kl">IVA neto a ${ivaPagar>0?'pagar':'favor'}</div></div>
+    <div class="kc" style="--mc:#ffab40"><div class="ki">🏦</div><div class="kv">$${fmt(igtf)}</div><div class="kl">IGTF generado</div></div>
+  </div>
+  <div class="calc-box" style="margin-bottom:14px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);letter-spacing:.15em;margin-bottom:10px">CÁLCULO IVA FORMA 30 — PERÍODO ${new Date().toLocaleString('es-VE',{month:'long',year:'numeric'}).toUpperCase()}</div>
+    <div class="calc-row"><span>IVA débito fiscal (ventas gravadas):</span><span>$${fmt(debFisc)}</span></div>
+    <div class="calc-row"><span>(-) IVA crédito fiscal (compras):</span><span style="color:#ff5252">-$${fmt(credFisc)}</span></div>
+    <div class="calc-row"><span>IVA neto a pagar SENIAT:</span><span style="color:${ivaPagar>0?'#ff5252':'#00e676'}">$${fmt(ivaPagar)}</span></div>
+    <div class="calc-row"><span>IGTF 3% a declarar:</span><span>$${fmt(igtf)}</span></div>
+  </div>
+  <div class="abar"><button class="abtn" onclick="changeIvaTab('Libro de Compras',document.querySelectorAll('.stab')[1])">📑 Ver Libro Compras</button></div>
+  <div class="cbar"><span class="cbt">NORMATIVA VE</span><div class="cbc"><span class="cc">LIVA Art. 50</span><span class="cc">Forma 30 SENIAT</span><span class="cc">IGTF 3%</span><span class="cc">ISLR</span></div></div>`;
+}
+function renderLibroCompras(c){
+  const compras=DB.ordenes.map(o=>{const v=DB.proveedores.find(p=>p.id===o.proveedor);return{fecha:o.fecha,nombre:v?v.nombre:'Proveedor',rif:v?v.rif:'—',base:o.total_usd,iva:o.total_usd*TAX.IVA,total:o.total_usd*(1+TAX.IVA)};});
+  const totB=compras.reduce((s,c)=>s+c.base,0);
+  const totI=compras.reduce((s,c)=>s+c.iva,0);
+  c.innerHTML=`<div class="abar"><button class="abtn" onclick="newCompraManual()">➕ Registrar Compra</button></div>
+  <div class="tbox"><div class="thdr"><span class="tttl">LIBRO DE COMPRAS — IVA CRÉDITO FISCAL</span></div>
+  <div class="tscroll"><table><thead><tr><th>Fecha</th><th>Proveedor</th><th>RIF</th><th>Base Imp.</th><th>IVA Crédito (16%)</th><th>Total</th></tr></thead>
+  <tbody>${compras.map(c=>`<tr><td>${fmtD(c.fecha)}</td><td>${c.nombre}</td><td>${c.rif}</td><td class="num">$${fmt(c.base)}</td><td class="num" style="color:#00e676">$${fmt(c.iva)}</td><td class="num">$${fmt(c.total)}</td></tr>`).join('')||`<tr><td colspan="6" class="empty">Sin compras registradas</td></tr>`}
+  <tr style="border-top:1px solid rgba(255,255,255,.1);font-weight:700"><td colspan="3"><b>TOTALES</b></td><td class="num" style="color:#ffab40">$${fmt(totB)}</td><td class="num" style="color:#00e676">$${fmt(totI)}</td><td class="num">$${fmt(totB+totI)}</td></tr>
+  </tbody></table></div></div>`;
+}
+function newCompraManual(){openModal('📑 Registrar Compra (Crédito Fiscal)',`<div class="mg2"><div class="mf"><label>Fecha</label><input class="mi2" id="fCMfe" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="mf"><label>Proveedor</label><select class="mi2" id="fCMpr">${DB.proveedores.map(v=>`<option value="${v.id}">${v.nombre}</option>`).join('')}</select></div></div><div class="mf"><label>Base Imponible USD</label><input class="mi2" id="fCMbs" type="number" step="0.01" placeholder="0.00" oninput="calcCompraIVA()"></div><div class="calc-box"><div class="calc-row"><span>IVA crédito (16%):</span><span id="fCMiva">$0.00</span></div><div class="calc-row"><span>Total:</span><span id="fCMtot">$0.00</span></div></div>`,()=>{const bs=+document.getElementById('fCMbs').value;const v=DB.proveedores.find(p=>p.id===document.getElementById('fCMpr').value);DB.ordenes.push({id:'OC-'+new Date().getFullYear()+'-'+String(DB.ordenes.length+1).padStart(3,'0'),proveedor:document.getElementById('fCMpr').value,fecha:document.getElementById('fCMfe').value,total_usd:bs,estado:'Aprobada',items:[]});closeModal();renderMod('ivarenta');toast('Compra registrada en libro');});}
+function calcCompraIVA(){const bs=+document.getElementById('fCMbs')?.value||0;const iva=bs*TAX.IVA;const e1=document.getElementById('fCMiva');const e2=document.getElementById('fCMtot');if(e1)e1.textContent='$'+fmt(iva);if(e2)e2.textContent='$'+fmt(bs+iva);}
+function renderRetenciones(c){
+  const factActivas=DB.facturas.filter(f=>f.estado!=='Anulada'&&f.iva>0);
+  c.innerHTML=`<div class="tbox"><div class="thdr"><span class="tttl">RETENCIONES IVA — AGENTES DE RETENCIÓN</span></div>
+  <div class="tscroll"><table><thead><tr><th>Factura</th><th>Cliente (RIF)</th><th>Base</th><th>IVA Generado</th><th>Retención 75%</th><th>IVA Neto</th></tr></thead>
+  <tbody>${factActivas.map(f=>{const cl=DB.clientes.find(c=>c.id===f.cliente);const ret=f.iva*0.75;return`<tr><td><span class="bdg by">${f.id}</span></td><td>${cl?cl.rif:'—'}</td><td class="num">$${fmt(f.base)}</td><td class="num">$${fmt(f.iva)}</td><td class="num" style="color:#ff5252">$${fmt(ret)}</td><td class="num" style="color:#00e676">$${fmt(f.iva-ret)}</td></tr>`;}).join('')||`<tr><td colspan="6" class="empty">Sin retenciones calculadas</td></tr>`}
+  </tbody></table></div></div>
+  <div class="cbar"><span class="cbt">BASE LEGAL</span><div class="cbc"><span class="cc">LIVA Art. 11</span><span class="cc">Providencia SNAT/2005-0056</span><span class="cc">Agentes Retención 75%</span><span class="cc">Especiales 100%</span></div></div>`;
+}
+
+/* ═══════════════════════════════════════
+   INFLACION
+═══════════════════════════════════════ */
+function renderInflacion(p){
+  p.innerHTML=modHeader('📈','Ajuste por Inflación','LISLR Art. 173–193 · NIC 29 · Índices BCV · Hiperinflación VE','#ff5252')+
+    `<div id="inflContent"></div>`;
+  const c=document.getElementById('inflContent');
+  const meses=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const anos=Object.keys(IPC).sort();
+  c.innerHTML=`<div class="krow">
+    <div class="kc" style="--mc:#ff5252"><div class="ki">📅</div><div class="kv">${anos[anos.length-1]}</div><div class="kl">Último año con datos IPC</div></div>
+    <div class="kc" style="--mc:#ff5252"><div class="ki">📊</div><div class="kv">${fmt(IPC[2024].dic,1)}</div><div class="kl">IPC Dic 2024</div></div>
+    <div class="kc" style="--mc:#ff5252"><div class="ki">📈</div><div class="kv">${fmt(((IPC[2024].dic/IPC[2023].dic-1)*100),1)}%</div><div class="kl">Inflación anual 2024</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+  <div>
+    <div class="tttl" style="padding:10px 0;display:block">⚙️ CALCULADORA DE AJUSTE INFLACIONARIO</div>
+    <div class="calc-box" style="margin-top:0">
+      <div class="mf"><label style="font-size:8.5px;font-weight:700;letter-spacing:.15em;color:var(--txt3);font-family:'JetBrains Mono',monospace;display:block;margin-bottom:5px">Descripción del Activo</label><input class="mi2" id="inflAsset" placeholder="Ej: Edificio sede principal" style="margin-bottom:8px"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div class="mf"><label style="font-size:8px;color:var(--txt3);font-family:'JetBrains Mono',monospace;display:block;margin-bottom:4px">Año inicial</label><select class="mi2" id="inflY1" onchange="calcAjuste()">${anos.map(a=>`<option>${a}</option>`).join('')}</select></div>
+        <div class="mf"><label style="font-size:8px;color:var(--txt3);font-family:'JetBrains Mono',monospace;display:block;margin-bottom:4px">Mes inicial</label><select class="mi2" id="inflM1" onchange="calcAjuste()">${meses.map(m=>`<option value="${m}">${m.toUpperCase()}</option>`).join('')}</select></div>
+        <div class="mf"><label style="font-size:8px;color:var(--txt3);font-family:'JetBrains Mono',monospace;display:block;margin-bottom:4px">Año final</label><select class="mi2" id="inflY2" onchange="calcAjuste()">${anos.map((a,i)=>`<option ${i===anos.length-1?'selected':''}>${a}</option>`).join('')}</select></div>
+        <div class="mf"><label style="font-size:8px;color:var(--txt3);font-family:'JetBrains Mono',monospace;display:block;margin-bottom:4px">Mes final</label><select class="mi2" id="inflM2" onchange="calcAjuste()">${meses.map((m,i)=>`<option value="${m}" ${i===11?'selected':''}>${m.toUpperCase()}</option>`).join('')}</select></div>
+      </div>
+      <div class="mf"><label style="font-size:8px;color:var(--txt3);font-family:'JetBrains Mono',monospace;display:block;margin-bottom:4px">Valor histórico USD</label><input class="mi2" id="inflVal" type="number" step="0.01" placeholder="0.00" oninput="calcAjuste()"></div>
+      <div id="inflResult" style="margin-top:10px"></div>
+      <button class="abtn" style="width:100%;justify-content:center;margin-top:10px" onclick="registrarAjuste()">➕ Registrar Ajuste</button>
+    </div>
+  </div>
+  <div>
+    <div class="tttl" style="padding:10px 0;display:block">📊 ÍNDICE DE PRECIOS AL CONSUMIDOR (BCV)</div>
+    <div class="tbox"><div class="tscroll" style="max-height:320px;overflow-y:auto"><table><thead><tr><th>Período</th><th>IPC</th><th>Variación</th></tr></thead>
+    <tbody>${anos.flatMap(a=>meses.filter(m=>IPC[a]&&IPC[a][m]).map((m,i,arr)=>{const ipc=IPC[a][m];const prev=i>0?IPC[a][arr[i-1]]:(a>anos[0]?IPC[+a-1][arr[arr.length-1]]:null);const var_=prev?((ipc/prev-1)*100).toFixed(1)+'%':'—';return`<tr><td>${m.toUpperCase()} ${a}</td><td class="num">${fmt(ipc,1)}</td><td class="num" style="color:${prev&&ipc>prev?'#ff5252':'#00e676'}">${var_}</td></tr>`;})).join('')}
+    </tbody></table></div></div>
+  </div></div>
+  <div id="ajustesReg"></div>`;
+  calcAjuste();renderAjustes();
+}
+let ajustesRegistrados=[];
+function calcAjuste(){
+  const y1=document.getElementById('inflY1')?.value;const m1=document.getElementById('inflM1')?.value;
+  const y2=document.getElementById('inflY2')?.value;const m2=document.getElementById('inflM2')?.value;
+  const val=+document.getElementById('inflVal')?.value||0;
+  const r=document.getElementById('inflResult');if(!r)return;
+  if(!IPC[y1]||!IPC[y1][m1]||!IPC[y2]||!IPC[y2][m2]){r.innerHTML='<div style="color:var(--txt3);font-size:11px">Selecciona períodos válidos</div>';return;}
+  const ipc1=IPC[y1][m1];const ipc2=IPC[y2][m2];
+  const factor=ipc2/ipc1;const ajuste=(factor-1)*val;const valorAjustado=val+ajuste;
+  r.innerHTML=`<div class="calc-row"><span>IPC inicial (${m1.toUpperCase()} ${y1}):</span><span>${fmt(ipc1,1)}</span></div>
+  <div class="calc-row"><span>IPC final (${m2.toUpperCase()} ${y2}):</span><span>${fmt(ipc2,1)}</span></div>
+  <div class="calc-row"><span>Factor de ajuste:</span><span>${fmt(factor,4)}x</span></div>
+  <div class="calc-row"><span>Valor histórico:</span><span>$${fmt(val)}</span></div>
+  <div class="calc-row"><span>Ajuste inflacionario:</span><span style="color:#ff5252">+$${fmt(ajuste)}</span></div>
+  <div class="calc-row"><span>VALOR AJUSTADO:</span><span>$${fmt(valorAjustado)}</span></div>`;
+}
+function registrarAjuste(){
+  const y1=document.getElementById('inflY1').value;const m1=document.getElementById('inflM1').value;
+  const y2=document.getElementById('inflY2').value;const m2=document.getElementById('inflM2').value;
+  const val=+document.getElementById('inflVal').value;const asset=document.getElementById('inflAsset').value||'Activo';
+  if(val<=0){toast('⚠ Ingresa el valor histórico');return;}
+  const ipc1=IPC[y1][m1];const ipc2=IPC[y2][m2];
+  const factor=ipc2/ipc1;const ajuste=(factor-1)*val;
+  ajustesRegistrados.push({asset,y1,m1,y2,m2,valor:val,factor,ajuste,valorAjustado:val+ajuste});
+  renderAjustes();toast('Ajuste registrado');
+}
+function renderAjustes(){
+  const c=document.getElementById('ajustesReg');if(!c)return;
+  if(!ajustesRegistrados.length){c.innerHTML='';return;}
+  c.innerHTML=`<div class="tbox" style="margin-top:14px"><div class="thdr"><span class="tttl">AJUSTES REGISTRADOS</span></div>
+  <div class="tscroll"><table><thead><tr><th>Activo</th><th>Período</th><th>Factor</th><th>Valor Histórico</th><th>Ajuste</th><th>Valor Ajustado</th></tr></thead>
+  <tbody>${ajustesRegistrados.map(a=>`<tr><td>${a.asset}</td><td>${a.m1.toUpperCase()} ${a.y1} → ${a.m2.toUpperCase()} ${a.y2}</td><td class="num">${fmt(a.factor,4)}x</td><td class="num">$${fmt(a.valor)}</td><td class="num" style="color:#ff5252">+$${fmt(a.ajuste)}</td><td class="num" style="color:#00e676">$${fmt(a.valorAjustado)}</td></tr>`).join('')}
+  </tbody></table></div></div>`;
+}
+
+/* ═══════════════════════════════════════
+   DECLARACION ELECTRONICA
+═══════════════════════════════════════ */
+function renderDeclaracion(p){
+  p.innerHTML=modHeader('📤','Declaración Electrónica','Portal SENIAT · e-RIF · Forma 30 · ISLR · IGTF · Calendario Fiscal','#40c4ff')+
+    subTabs(['Forma 30 IVA','ISLR Estimada','Calendario SENIAT'],'Forma 30 IVA','changeDeclTab')+
+    `<div id="declContent"></div>`;
+  renderForma30(document.getElementById('declContent'));
+}
+function changeDeclTab(t,el){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');const c=document.getElementById('declContent');if(t==='Forma 30 IVA')renderForma30(c);else if(t==='ISLR Estimada')renderISLR(c);else renderCalendario(c);}
+function renderForma30(c){
+  const factActivas=DB.facturas.filter(f=>f.estado!=='Anulada');
+  const debFisc=factActivas.reduce((s,f)=>s+f.iva,0);
+  const credFisc=DB.ordenes.reduce((s,o)=>s+(o.total_usd*TAX.IVA),0);
+  const ivaPagar=Math.max(0,debFisc-credFisc);
+  const igtf=factActivas.reduce((s,f)=>s+f.igtf,0);
+  const periodo=new Date().toLocaleString('es-VE',{month:'long',year:'numeric'});
+  c.innerHTML=`<div class="calc-box" style="max-width:600px">
+    <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--a1);margin-bottom:12px;text-align:center">FORMA 30 — DECLARACIÓN IVA<br><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--txt3);font-weight:400">${periodo.toUpperCase()}</span></div>
+    <div class="calc-row"><span>Nombre o Razón Social:</span><span style="color:#fff">${document.getElementById('coN')?.value||'Empresa'}</span></div>
+    <div class="calc-row"><span>Período fiscal:</span><span>${periodo}</span></div>
+    <div class="calc-row"><span style="font-weight:700;color:#40c4ff">I. IVA DÉBITO FISCAL (Ventas)</span><span></span></div>
+    <div class="calc-row"><span>&nbsp;&nbsp;Ventas gravadas base imponible:</span><span>$${fmt(factActivas.filter(f=>f.tipo==='gravada').reduce((s,f)=>s+f.base,0))}</span></div>
+    <div class="calc-row"><span>&nbsp;&nbsp;IVA 16% generado:</span><span>$${fmt(debFisc)}</span></div>
+    <div class="calc-row"><span style="font-weight:700;color:#40c4ff">II. IVA CRÉDITO FISCAL (Compras)</span><span></span></div>
+    <div class="calc-row"><span>&nbsp;&nbsp;Compras gravadas base imponible:</span><span>$${fmt(DB.ordenes.reduce((s,o)=>s+o.total_usd,0))}</span></div>
+    <div class="calc-row"><span>&nbsp;&nbsp;IVA crédito fiscal:</span><span>$${fmt(credFisc)}</span></div>
+    <div class="calc-row"><span style="font-weight:700;color:#40c4ff">III. IVA NETO</span><span></span></div>
+    <div class="calc-row"><span>IVA débito - IVA crédito:</span><span style="color:${ivaPagar>0?'#ff5252':'#00e676'}">$${fmt(ivaPagar)} ${ivaPagar>0?'(A PAGAR)':'(A FAVOR)'}</span></div>
+    <div class="calc-row"><span>IGTF 3% a declarar:</span><span>$${fmt(igtf)}</span></div>
+    <div class="calc-row"><span>TOTAL A PAGAR SENIAT:</span><span>$${fmt(ivaPagar+igtf)}</span></div>
+  </div>
+  <div class="abar" style="margin-top:14px"><button class="abtn" onclick="toast('✅ Declaración generada y lista para enviar al portal SENIAT')">📤 Generar para Portal SENIAT</button><button class="abtn sec" onclick="toast('📎 Declaración guardada como PDF')">💾 Guardar PDF</button></div>
+  <div class="cbar" style="margin-top:14px"><span class="cbt">NORMATIVA VE</span><div class="cbc"><span class="cc">LIVA</span><span class="cc">Portal SENIAT</span><span class="cc">e-RIF</span><span class="cc">Forma 30</span></div></div>`;
+}
+function renderISLR(c){
+  const totalVentas=DB.facturas.filter(f=>f.estado!=='Anulada').reduce((s,f)=>s+f.base,0);
+  const totalCostos=DB.ordenes.reduce((s,o)=>s+o.total_usd,0);
+  const utilidad=totalVentas-totalCostos;
+  const islrEst=utilidad>0?utilidad*0.34:0;
+  c.innerHTML=`<div class="calc-box" style="max-width:600px">
+    <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--a1);margin-bottom:12px;text-align:center">FORMA 25 — ISLR ESTIMADO<br><span style="font-size:9px;font-family:'JetBrains Mono',monospace;color:var(--txt3)">EJERCICIO FISCAL 2025</span></div>
+    <div class="calc-row"><span>Total ventas / ingresos:</span><span>$${fmt(totalVentas)}</span></div>
+    <div class="calc-row"><span>(-) Costo de ventas / compras:</span><span style="color:#ff5252">-$${fmt(totalCostos)}</span></div>
+    <div class="calc-row"><span>Renta bruta estimada:</span><span>$${fmt(utilidad)}</span></div>
+    <div class="calc-row"><span>ISLR estimado (34%):</span><span style="color:${islrEst>0?'#ff5252':'#00e676'}">$${fmt(islrEst)}</span></div>
+    <div class="calc-row"><span>Anticipo 1er trimestre:</span><span>$${fmt(islrEst/4)}</span></div>
+  </div>
+  <div class="abar" style="margin-top:14px"><button class="abtn" onclick="toast('✅ Forma 25 ISLR lista para enviar al SENIAT')">📤 Enviar Forma 25</button></div>`;
+}
+function renderCalendario(c){
+  const hoy=new Date();const m=hoy.getMonth();const a=hoy.getFullYear();
+  const meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const obligs=[
+    {nombre:'IVA Forma 30',vence:`15/${m+1+1<=12?m+2:1}/${m+1+1<=12?a:a+1}`,estado:'Pendiente',forma:'F-30'},
+    {nombre:'ISLR Estimado (1er cuota)',vence:`31/03/${a}`,estado:'Vencida',forma:'F-25'},
+    {nombre:'ISLR Estimado (2da cuota)',vence:`30/06/${a}`,estado:'Próximo',forma:'F-25'},
+    {nombre:'IGTF 3%',vence:`15/${m+1+1<=12?m+2:1}/${m+1+1<=12?a:a+1}`,estado:'Pendiente',forma:'IGTF'},
+    {nombre:'ARC - Retenciones ISLR',vence:`31/01/${a+1}`,estado:'Próximo',forma:'ARC'},
+    {nombre:'Declaración Definitiva ISLR',vence:`31/03/${a+1}`,estado:'Próximo',forma:'DD'},
+  ];
+  c.innerHTML=`<div class="tbox"><div class="thdr"><span class="tttl">📅 CALENDARIO FISCAL SENIAT ${a}</span></div>
+  <div class="tscroll"><table><thead><tr><th>Obligación</th><th>Forma</th><th>Fecha Vencimiento</th><th>Estado</th><th>Acción</th></tr></thead>
+  <tbody>${obligs.map(o=>`<tr><td>${o.nombre}</td><td><span class="bdg bb">${o.forma}</span></td><td>${o.vence}</td><td><span class="bdg ${o.estado==='Pendiente'?'by':o.estado==='Vencida'?'br':'bp'}">${o.estado}</span></td><td><button class="abtn sec" style="padding:3px 8px;font-size:10px" onclick="toast('Preparando declaración: ${o.nombre}')">📤 Declarar</button></td></tr>`).join('')}
+  </tbody></table></div></div>`;
+}
+
+/* ═══════════════════════════════════════
+   CIBERSEGURIDAD
+═══════════════════════════════════════ */
+function renderCyber(p){
+  p.innerHTML=modHeader('🛡️','Ciberseguridad','Control de Acceso · Backup · Auditoría · VPN · 2FA · ISO 27001','#69f0ae')+
+    subTabs(['Auditoría','Seguridad del Sistema','Backup'],'Auditoría','changeCyberTab')+
+    `<div id="cyberContent"></div>`;
+  renderAuditoria(document.getElementById('cyberContent'));
+}
+function changeCyberTab(t,el){document.querySelectorAll('.stab').forEach(s=>s.classList.remove('on'));el.classList.add('on');const c=document.getElementById('cyberContent');if(t==='Auditoría')renderAuditoria(c);else if(t==='Seguridad del Sistema')renderSeg(c);else renderBackup(c);}
+function renderAuditoria(c){
+  c.innerHTML=`<div class="krow">
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">📜</div><div class="kv">${DB.auditLog.length}</div><div class="kl">Eventos registrados</div></div>
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">🛡️</div><div class="kv">${DB.auditLog.filter(l=>l.evento.includes('bloqueado')||l.evento.includes('fallido')).length}</div><div class="kl">Intentos bloqueados</div></div>
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">✅</div><div class="kv">${DB.auditLog.filter(l=>l.evento.includes('sesión')).length}</div><div class="kl">Inicios de sesión</div></div>
+  </div>
+  <div class="tbox"><div class="thdr"><span class="tttl">REGISTRO DE AUDITORÍA — EVENTOS DEL SISTEMA</span><button class="abtn sec" style="padding:4px 10px;font-size:10px" onclick="DB.auditLog.push({evento:'Escaneo de seguridad completado',usuario:'sistema',ip:'localhost',modulo:'Cyber',fecha:new Date().toLocaleString()});renderMod('cyber');toast('Escaneo completado: sin amenazas')">🔍 Escanear</button></div>
+  <div class="tscroll"><table><thead><tr><th>Fecha / Hora</th><th>Evento</th><th>Usuario</th><th>IP Origen</th><th>Módulo</th></tr></thead>
+  <tbody>${DB.auditLog.slice(0,50).map(l=>`<tr><td style="font-family:'JetBrains Mono',monospace;font-size:10px">${l.fecha}</td><td>${l.evento}</td><td>${l.usuario}</td><td>${l.ip}</td><td>${l.modulo}</td></tr>`).join('')}
+  </tbody></table></div></div>`;
+}
+function renderSeg(c){
+  c.innerHTML=`<div class="krow">
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">🔐</div><div class="kv">AES-256</div><div class="kl">Cifrado de datos</div></div>
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">🔒</div><div class="kv">TLS 1.3</div><div class="kl">Protocolo de red</div></div>
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">🛡️</div><div class="kv">99.8%</div><div class="kl">Uptime sistema</div></div>
+    <div class="kc" style="--mc:#69f0ae"><div class="ki">⚡</div><div class="kv">0</div><div class="kl">Amenazas activas</div></div>
+  </div>
+  <div class="abar"><button class="abtn" onclick="toast('✅ Contraseña actualizada correctamente')">🔑 Cambiar Contraseña</button><button class="abtn sec" onclick="toast('🌐 VPN empresarial activada')">🌐 Activar VPN</button><button class="abtn sec" onclick="toast('📱 Código 2FA enviado al dispositivo')">📱 Configurar 2FA</button></div>
+  <div class="tbox"><div class="thdr"><span class="tttl">ESTADO DEL SISTEMA</span></div>
+  <table><thead><tr><th>Componente</th><th>Estado</th><th>Última verificación</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>Cifrado BD</td><td><span class="bdg bg">Activo</span></td><td>${new Date().toLocaleString()}</td><td>AES-256 en reposo</td></tr>
+    <tr><td>Firewall</td><td><span class="bdg bg">Activo</span></td><td>${new Date().toLocaleString()}</td><td>Reglas actualizadas</td></tr>
+    <tr><td>Backup automático</td><td><span class="bdg bg">Activo</span></td><td>Hoy 02:00 AM</td><td>Copia diaria nube</td></tr>
+    <tr><td>Antivirus</td><td><span class="bdg bg">Activo</span></td><td>Hoy 06:00 AM</td><td>Definiciones al día</td></tr>
+    <tr><td>Certificado SSL</td><td><span class="bdg bg">Válido</span></td><td>${new Date().toLocaleString()}</td><td>Expira 2026-01-01</td></tr>
+  </tbody></table></div>`;
+}
+function renderBackup(c){
+  c.innerHTML=`<div class="abar"><button class="abtn" onclick="toast('💾 Backup iniciado. Tiempo estimado: 2 minutos')">💾 Iniciar Backup Manual</button><button class="abtn sec" onclick="toast('☁️ Backup en nube completado')">☁️ Backup Nube</button></div>
+  <div class="tbox"><div class="thdr"><span class="tttl">HISTORIAL DE BACKUPS</span></div>
+  <table><thead><tr><th>Fecha</th><th>Tipo</th><th>Módulos</th><th>Tamaño</th><th>Estado</th></tr></thead>
+  <tbody>
+    <tr><td>Hoy 02:00 AM</td><td>Automático</td><td>Todos</td><td>24.5 MB</td><td><span class="bdg bg">Completado</span></td></tr>
+    <tr><td>Ayer 02:00 AM</td><td>Automático</td><td>Todos</td><td>23.8 MB</td><td><span class="bdg bg">Completado</span></td></tr>
+    <tr><td>Hace 2 días</td><td>Manual</td><td>Facturas, Cont.</td><td>12.1 MB</td><td><span class="bdg bg">Completado</span></td></tr>
+  </tbody></table></div>`;
+}
+
+/* ═══════════════════════════════════════
+   PERMISOS
+═══════════════════════════════════════ */
+function renderPermisos(p){
+  p.innerHTML=modHeader('🗺️','Mapa de Permisos','Usuarios · Accesos por Módulo · Roles · Control de Seguridad','#ea80fc')+
+    `<div class="abar"><button class="abtn" onclick="addUserModal()">➕ Agregar Usuario</button></div>
+    <div class="permbox"><div class="thdr"><span class="tttl">USUARIOS Y ACCESOS POR MÓDULO</span></div>
+    <div id="permTable"></div></div>`;
+  buildPermTable();
+}
+function buildPermTable(){
+  const t=document.getElementById('permTable');if(!t)return;
+  const roleCol={admin:'#ea80fc',contador:'#40c4ff',rrhh:'#00e676',facturador:'#ffd740',auditor:'#ffab40'};
+  t.innerHTML=`<div style="overflow-x:auto"><table>
+    <thead><tr><th style="min-width:180px">USUARIO</th><th>ROL</th>${MODS.map(m=>`<th style="text-align:center;color:${m.color}">${m.icon}<br><span style="font-size:7px">${m.short}</span></th>`).join('')}</tr></thead>
+    <tbody>${DB.usuarios.map((u,ui)=>{
+      const av=u.nombre.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+      const rc=roleCol[u.role]||'#4a6a8a';
+      return`<tr>
+        <td><div style="display:flex;align-items:center;gap:8px"><div class="userav" style="border-color:${rc};color:${rc};background:${rc}18">${av}</div><div><div style="font-size:11.5px;font-weight:600">${u.nombre}</div><div style="font-size:9px;color:var(--txt3);font-family:'JetBrains Mono',monospace">${u.email}</div></div></div></td>
+        <td><select class="rsel" onchange="changeRole(${ui},this.value)">${['admin','contador','rrhh','facturador','auditor'].map(r=>`<option value="${r}" ${u.role===r?'selected':''}>${r.charAt(0).toUpperCase()+r.slice(1)}</option>`).join('')}</select></td>
+        ${MODS.map(m=>`<td style="text-align:center"><label class="tog"><input type="checkbox" ${u.perms[m.id]?'checked':''} onchange="togglePerm(${ui},'${m.id}',this.checked)"><span class="tsl" style="${u.perms[m.id]?`background:${m.color}50;border-color:${m.color}`:''}" ></span></label></td>`).join('')}
+      </tr>`;}).join('')}
+    </tbody></table></div>`;
+}
+function togglePerm(ui,mid,val){DB.usuarios[ui].perms[mid]=val?1:0;toast(`Permiso ${val?'habilitado':'revocado'}: ${mid}`);buildPermTable();}
+function changeRole(ui,r){DB.usuarios[ui].role=r;toast('Rol actualizado: '+DB.usuarios[ui].nombre);buildPermTable();}
+function addUserModal(){
+  openModal('➕ Agregar Usuario',
+    `<div class="mg2"><div class="mf"><label>Nombre completo</label><input class="mi2" id="mUN" placeholder="Apellido, Nombre"></div><div class="mf"><label>Email / Usuario</label><input class="mi2" id="mUE" placeholder="usuario@empresa.com"></div></div>
+    <div class="mf"><label>Rol</label><select class="mi2" id="mUR"><option value="admin">Administrador</option><option value="contador">Contador</option><option value="rrhh">RRHH</option><option value="facturador">Facturador</option><option value="auditor">Auditor</option></select></div>
+    <div class="mf" style="margin-top:8px"><label>Módulos con acceso</label></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">${MODS.map(m=>`<label style="display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:7px;border:1px solid var(--brd);cursor:pointer"><input type="checkbox" name="mp" value="${m.id}" checked style="accent-color:var(--a1)"><span style="font-size:10.5px">${m.icon} ${m.short}</span></label>`).join('')}</div>`,
+    ()=>{
+      const n=document.getElementById('mUN').value.trim();const e=document.getElementById('mUE').value.trim();
+      if(!n||!e){toast('⚠ Nombre y email requeridos');return;}
+      const perms={};MODS.forEach(m=>{perms[m.id]=0;});
+      document.querySelectorAll('[name=mp]:checked').forEach(i=>perms[i.value]=1);
+      DB.usuarios.push({nombre:n,email:e,role:document.getElementById('mUR').value,perms});
+      closeModal();renderMod('permisos');toast('Usuario '+n+' creado');
+    });
+}
+</script>
+</body>
+</html>
